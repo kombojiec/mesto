@@ -1,0 +1,6 @@
+.profile__author{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-right: 17px;
+}
