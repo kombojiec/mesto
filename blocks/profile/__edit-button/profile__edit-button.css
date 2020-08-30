@@ -7,4 +7,9 @@
   border: 1px solid #fff;
   background: transparent;
   box-sizing: border-box;
+  transition: opacity 0.2s linear;
+}
+
+.profile__edit-button:hover{
+  opacity: 0.6;
 }
