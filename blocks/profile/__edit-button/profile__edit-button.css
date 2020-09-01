@@ -5,7 +5,7 @@
   width: 24px;
   height: 24px;
   border: 1px solid #fff;
-  background: transparent;
+  background: transparent url(../../../images/edit.svg) center center no-repeat;
   box-sizing: border-box;
   transition: opacity 0.2s linear;
 }

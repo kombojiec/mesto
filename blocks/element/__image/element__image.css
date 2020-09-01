@@ -3,6 +3,7 @@
   max-width: 282px;
   height: 100%;
   max-height: 282px;
+  vertical-align: bottom;
   object-fit: cover;
   object-position: center;  
   border-radius: 10px 10px 0 0;  

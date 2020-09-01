@@ -10,9 +10,7 @@
   <div class="page__container">
     <!--=================Header=================== -->
     <header class="header">
-      <div class="header__wrap-logo">
-        <img src="./images/logo.svg" alt="Логотип" class="header__logo">
-      </div>
+      <img src="./images/logo.svg" alt="Логотип" class="header__logo">
     </header>
 
     <!--=================Main=================== -->
@@ -26,17 +24,13 @@
             <div class="profile__author">
               <div class="profile__name-wrap">
                 <h1 class="profile__name">Жак-Ив Кусто</h1>
-                <button class="button profile__edit-button">
-                  <img src="./images/edit.svg" alt="Редактировать" class="profile__edit-button-image">
-                </button>
+                <button class="button profile__edit-button" type="button"></button>
               </div>              
               <p class="profile__business">Исследователь океана</p>
             </div>            
           </div>
         </div>
-        <button class="profile__add-button">
-          <img src="./images/add.svg" alt="Добавить" class="profile__add-button-img">
-        </button>
+        <button class="profile__add-button" type="button"></button>
       </section>
 
       <!--=================Elements=================== -->
@@ -45,54 +39,54 @@
           <img src="./images/karachaevsk.jpg" alt="Карачаевск" class="element__image">
           <div class="element__description">
             <h2 class="element__title">Карачаево-Черкессия</h2>
-            <img src="./images/like.svg" alt="Нрвиться" class="element__like">
+            <button class="element__like" type="button"></button>
           </div>
         </article>
         <article class="element">
           <img src="./images/elbrus.png" alt="Эльбрус" class="element__image">
           <div class="element__description">
             <h2 class="element__title">Гора Эльбрус</h2>
-            <img src="./images/like.svg" alt="Нрвиться" class="element__like">
+            <button class="element__like" type="button"></button>
           </div>
         </article>
         <article class="element">
           <img src="./images/dombai.png" alt="Домбай" class="element__image">
           <div class="element__description">
             <h2 class="element__title">Домбай</h2>
-            <img src="./images/like.svg" alt="Нрвиться" class="element__like">
+            <button class="element__like" type="button"></button>
           </div>
         </article>
         <article class="element">
           <img src="./images/ural.jpg" alt="Урал" class="element__image">
           <div class="element__description">
             <h2 class="element__title">Урал</h2>
-            <img src="./images/like.svg" alt="Нрвиться" class="element__like">
+            <button class="element__like" type="button"></button>
           </div>
         </article>
         <article class="element">
           <img src="./images/harley.jpg" alt="Мечта" class="element__image">
           <div class="element__description">
             <h2 class="element__title">Мечта</h2>
-            <img src="./images/like.svg" alt="Нрвиться" class="element__like">
+            <button class="element__like" type="button"></button>
           </div>
         </article>
         <article class="element">
           <img src="./images/tayga.jpg" alt="Тайга" class="element__image">
           <div class="element__description">
             <h2 class="element__title">Тайга</h2>
-            <img src="./images/like.svg" alt="Нрвиться" class="element__like">
+            <button class="element__like" type="button"></button>
           </div>
         </article>
       </section>      
 
       <!--=================PopUp=================== -->
       <section class="popup">
-        <form action="" class="popup__container">
+        <form action="#" class="popup__container">
           <h2 class="popup__title">Редактировать профиль</h2>
-          <input type="text" class="popup__input popup__input_place_name" placeholder="Жак-Ив Кусто">
-          <input type="text" class="popup__input popup__input_place_business" placeholder="Исследователь океана">
+          <input type="text" class="popup__input popup__input_place_name" name="edit-name">
+          <input type="text" class="popup__input popup__input_place_business" name="edit-business">
           <button class="popup__button" type="submit">Сохранить</button>
-          <img src="./images/close.svg" alt="Закрыть" class="popup__close">
+          <button class="popup__close" type="button"></button>
         </form>
       </section>
     </main>
@@ -102,6 +96,6 @@
       <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
     </footer>    
   </div>
-<script src="./js/script.js"></script>
+<script src="./scripts/script.js"></script>
 </body>
 </html>

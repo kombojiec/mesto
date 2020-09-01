@@ -2,6 +2,9 @@
   width: 20.76px;
   height: 18.13px;
   transition: opacity .2s linear;
+  background: url(../../../images/like.svg) center no-repeat;
+  background-size: contain;
+  border: none;
 }
 
 .element__like:hover{
