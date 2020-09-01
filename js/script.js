@@ -1,6 +1,7 @@
 'use strict';
 
 let editProfile = document.querySelector('.profile__edit-button'),
+    page = document.querySelector('.page'),
     popup = document.querySelector('.popup'),
     popupContainer = popup.querySelector('.popup__container'),
     closeProfile = popup.querySelector('.popup__close'),  
@@ -13,6 +14,7 @@ let editProfile = document.querySelector('.profile__edit-button'),
 /*==============Profile window=============*/ 
 function editProfileToggle() {  
   popup.classList.toggle('popup_opened');
+  page.classList.toggle('page_overflow_hidden');
 }
 editProfile.addEventListener('click', editProfileToggle);
 closeProfile.addEventListener('click', editProfileToggle);
