@@ -1,9 +1,9 @@
-.footer{
+.header__wrap-logo{
 
 }
 
 @media screen and (max-width: 499px){
-  .footer{
+  .header__wrap-logo{
     max-width: 282px;
     margin: auto;
   }

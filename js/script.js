@@ -1,6 +1,6 @@
 'use strict';
 
-let editProfile = document.querySelector('.profile__edit-button'),
+const editProfile = document.querySelector('.profile__edit-button'),
     page = document.querySelector('.page'),
     popup = document.querySelector('.popup'),
     popupContainer = popup.querySelector('.popup__container'),
@@ -25,11 +25,9 @@ popup.addEventListener('click', (event)=>{
 });
 
 function formSubmitHandler(){
-  event.preventDefault(); 
-  
+  event.preventDefault();   
   profileName.textContent = profileInputName.value; 
   profileBusiness.textContent = profileInputBusiness.value;
   editProfileToggle();     
 }
-
 popup.addEventListener('submit', formSubmitHandler);

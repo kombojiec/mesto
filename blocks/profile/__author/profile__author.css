@@ -4,3 +4,9 @@
   justify-content: center;
   margin-right: 17px;
 }
+
+@media screen and (max-width: 499px){
+  .profile__author{
+    margin: 0;
+  }
+}
