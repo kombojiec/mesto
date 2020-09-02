@@ -13,3 +13,9 @@
     margin-bottom: 25px;
   }
 }
+
+@media screen and (max-height: 360px){
+  .popup__title{
+    margin: 10px 0 20px;
+  }
+}
