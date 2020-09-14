@@ -35,7 +35,16 @@
 
       <!--=================Elements=================== -->
       <section class="elements">
-        <article class="element">
+        <template class="elements__template">
+          <article class="element">
+            <img src="" alt="" class="element__image">
+            <div class="element__description">
+              <h2 class="element__title"></h2>
+              <button class="element__like" type="button"></button>
+            </div>
+          </article>
+        </template>
+        <!-- <article class="element">
           <img src="./images/karachaevsk.jpg" alt="Карачаевск" class="element__image">
           <div class="element__description">
             <h2 class="element__title">Карачаево-Черкессия</h2>
@@ -76,18 +85,28 @@
             <h2 class="element__title">Тайга</h2>
             <button class="element__like" type="button"></button>
           </div>
-        </article>
+        </article> -->
       </section>      
 
       <!--=================PopUp=================== -->
       <section class="popup">
-        <form action="#" class="popup__container">
+        <!-- <form action="#" class="popup__container">
           <h2 class="popup__title">Редактировать профиль</h2>
           <input type="text" class="popup__input popup__input_place_name" name="edit-name">
           <input type="text" class="popup__input popup__input_place_business" name="edit-business">
           <button class="popup__button" type="submit">Сохранить</button>
           <button class="popup__close" type="button"></button>
-        </form>
+        </form> -->
+
+        <template class="template">
+          <form action="#" class="popup__container">
+            <!-- <h2 class="popup__title">Редактировать профиль</h2>
+            <input type="text" class="popup__input popup__input_place_name" name="edit-name">
+            <input type="text" class="popup__input popup__input_place_business" name="edit-business">
+            <button class="popup__button" type="submit">Сохранить</button>
+            <button class="popup__close" type="button"></button> -->
+          </form>
+        </template>
       </section>
     </main>
 
