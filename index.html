@@ -44,62 +44,12 @@
               <button class="element__basket" type="button"></button>
             </div>
           </article>
-        </template>
-        <!-- <article class="element">
-          <img src="./images/karachaevsk.jpg" alt="Карачаевск" class="element__image">
-          <div class="element__description">
-            <h2 class="element__title">Карачаево-Черкессия</h2>
-            <button class="element__like" type="button"></button>
-          </div>
-        </article>
-        <article class="element">
-          <img src="./images/elbrus.png" alt="Эльбрус" class="element__image">
-          <div class="element__description">
-            <h2 class="element__title">Гора Эльбрус</h2>
-            <button class="element__like" type="button"></button>
-          </div>
-        </article>
-        <article class="element">
-          <img src="./images/dombai.png" alt="Домбай" class="element__image">
-          <div class="element__description">
-            <h2 class="element__title">Домбай</h2>
-            <button class="element__like" type="button"></button>
-          </div>
-        </article>
-        <article class="element">
-          <img src="./images/ural.jpg" alt="Урал" class="element__image">
-          <div class="element__description">
-            <h2 class="element__title">Урал</h2>
-            <button class="element__like" type="button"></button>
-          </div>
-        </article>
-        <article class="element">
-          <img src="./images/harley.jpg" alt="Мечта" class="element__image">
-          <div class="element__description">
-            <h2 class="element__title">Мечта</h2>
-            <button class="element__like" type="button"></button>
-          </div>
-        </article>
-        <article class="element">
-          <img src="./images/tayga.jpg" alt="Тайга" class="element__image">
-          <div class="element__description">
-            <h2 class="element__title">Тайга</h2>
-            <button class="element__like" type="button"></button>
-          </div>
-        </article> -->
+        </template>        
       </section>      
 
       <!--=================PopUp=================== -->
-      <section class="popup">
-        <!-- <form action="#" class="popup__container">
-          <h2 class="popup__title">Редактировать профиль</h2>
-          <input type="text" class="popup__input popup__input_place_name" name="edit-name">
-          <input type="text" class="popup__input popup__input_place_business" name="edit-business">
-          <button class="popup__button" type="submit">Сохранить</button>
-          <button class="popup__close" type="button"></button>
-        </form> -->
-
-        <template class="template">
+      <section class="popup">       
+        <template class="popup__template popup__template_value_form">
           <form action="#" class="popup__container">
             <h2 class="popup__title">Редактировать профиль</h2>
             <input type="text" class="popup__input popup__input_place_name" name="edit-name">
@@ -108,8 +58,18 @@
             <button class="popup__close" type="button"></button>
           </form>
         </template>
+
+        <template class="popup__template popup__template_value_image">
+          <figure class="popup__figure">
+            <img class="popup__image" src="https://images.unsplash.com/photo-1600167739912-22104c27360a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+                 alt="svfdvdvdfvv">
+            <button class="popup__close" type="button"></button>
+            <figcaption class="popup__figcaption">An elephant at sunset</figcaption>
+        </figure>
+        </template>
       </section>
     </main>
+    
 
     <!--=================Footer=================== -->
     <footer class="footer">
