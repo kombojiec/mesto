@@ -125,6 +125,16 @@ function createCard(name, link){
   container.querySelector('.element__title').textContent = name;
   container.querySelector('.element__image').alt = name;
   container.querySelector('.element__image').src = link;
+  const like = container.querySelector('.element__like');
+  const basket = container.querySelector('.element__basket');
+  const element = container.querySelector('.element');
+  like.addEventListener('click', ()=>{
+    likeCard(like);
+  });
+  basket.addEventListener('click', ()=>{
+    element.remove();
+  });
+  
   elements.append(container);
 }
 
@@ -154,9 +164,22 @@ function addCard(name, link){
   container.querySelector('.element__title').textContent = name;
   container.querySelector('.element__image').alt = name;
   container.querySelector('.element__image').src = link;
+  const like = container.querySelector('.element__like');
+  const basket = container.querySelector('.element__basket');
+  const element = container.querySelector('.element');
+  like.addEventListener('click', ()=>{
+    likeCard(like);
+  });
+  basket.addEventListener('click', ()=>{
+    element.remove();
+  });
   elements.prepend(container);
   closePopup();
 }
+
+const likeCard = function(element){
+  element.classList.toggle('element__like_active');
+};
 
 
 

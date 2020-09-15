@@ -1,6 +1,6 @@
 .elements{
   display: grid;
-  grid-template-rows: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 362px);
   grid-template-columns: repeat(3, 1fr);
   justify-content: center;
   grid-auto-rows: auto;
@@ -10,14 +10,14 @@
 
 @media screen and (max-width: 820px){
   .elements{
-    grid-template-rows: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 362px);
     grid-template-columns: repeat(2, minmax(200px, 282px));
   }
 }
 
 @media screen and (max-width: 499px){
   .elements{
-    grid-template-rows: repeat(6, 1fr);
+    grid-template-rows: repeat(6, 362px);
     grid-template-columns: 282px;
     gap: 20px;
     padding-bottom: 48px;
