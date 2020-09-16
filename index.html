@@ -49,7 +49,7 @@
 
       <!--=================PopUp=================== -->
       <section class="popup">       
-        <template class="popup__template popup__template_value_form">
+        <template class="popup__template popup__template_value_profile">
           <form action="#" class="popup__container">
             <h2 class="popup__title">Редактировать профиль</h2>
             <input type="text" class="popup__input popup__input_place_name" name="edit-name">
@@ -59,12 +59,22 @@
           </form>
         </template>
 
+        <template class="popup__template popup__template_value_card">
+          <form action="#" class="popup__container">
+            <h2 class="popup__title">Новое место</h2>
+            <input type="text" class="popup__input popup__input_place_name" name="card-name" placeholder="Название">
+            <input type="text" class="popup__input popup__input_place_source" name="card-sourse" placeholder="Ссылка на картинку">
+            <button class="popup__button" type="submit">Добавить</button>
+            <button class="popup__close" type="button"></button>
+          </form>
+        </template>
+
         <template class="popup__template popup__template_value_image">
           <figure class="popup__figure">
-            <img class="popup__image" src="https://images.unsplash.com/photo-1600167739912-22104c27360a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                 alt="svfdvdvdfvv">
+            <img class="popup__image" src=""
+                 alt="">
             <button class="popup__close" type="button"></button>
-            <figcaption class="popup__figcaption">An elephant at sunset</figcaption>
+            <figcaption class="popup__figcaption"></figcaption>
         </figure>
         </template>
       </section>

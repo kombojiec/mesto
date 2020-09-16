@@ -1,19 +1,15 @@
 'use strict';
 
-let  editProfile = document.querySelector('.profile__edit-button');
-let  page = document.querySelector('.page');
-let  popup = document.querySelector('.popup');
-let  popupContainer = popup.querySelector('.popup__container');
-let  closeProfile = popup.querySelector('.popup__close');
-let  profileName = document.querySelector('.profile__name');
-let  profileBusiness = document.querySelector('.profile__business');
-let  profileInputName = document.querySelector('.popup__input_place_name');
-let  profileInputBusiness = document.querySelector('.popup__input_place_business');
+const  profileButton = document.querySelector('.profile__edit-button');
+const cardButton = document.querySelector('.profile__add-button');
+const  popup = document.querySelector('.popup');
+const  profileName = document.querySelector('.profile__name');
+const  profileBusiness = document.querySelector('.profile__business');
 const elements = document.querySelector('.elements');
-const popupTemplate = document.querySelector('.popup__template_value_form').content;
+const formProfileTemplate = document.querySelector('.popup__template_value_profile').content;
+const formCardTemplate = document.querySelector('.popup__template_value_card').content;
 const cardTemplate = document.querySelector('.elements__template').content;
 const imageTemplate = document.querySelector('.popup__template_value_image').content;
-const addCardButton = document.querySelector('.profile__add-button');
 
 const initialCards = [
   {
@@ -42,111 +38,87 @@ const initialCards = [
   }
 ];
 
-
 /*==============================editProfile============================*/
-function showProfilePopup(){
-  const content = popupTemplate.cloneNode(true);
-  const container = content.querySelector('.popup__container');
-  
-  popup.innerHTML = "";
-  container.innerHTML =`<h2 class="popup__title">Редактировать профиль</h2>
-  <input type="text" class="popup__input popup__input_place_name" name="edit-name">
-  <input type="text" class="popup__input popup__input_place_business" name="edit-business">
-  <button class="popup__button" type="submit">Сохранить</button>
-  <button class="popup__close" type="button"></button>`;
-  // console.log(container);
-  let name = container.querySelector('.popup__input_place_name');
-  name.value = profileName.textContent;
-  let business = container.querySelector('.popup__input_place_business');
-  business.value = profileBusiness.textContent;
-  openPopup();
-  container.addEventListener('submit', ()=>{
-    formSubmitHandler(name, business);
-  });
+const showProfilePopup = function(){
+  const content = formProfileTemplate.cloneNode(true);
+  const container = content.querySelector('.popup__container');  
+  const name = container.querySelector('.popup__input_place_name');
+  const business = container.querySelector('.popup__input_place_business');
   const close = container.querySelector('.popup__close');
-  close.addEventListener('click', closePopup);
-  popup.append(container);
-}
 
-function formSubmitHandler(name, business){
+  popup.innerHTML = "";  
+  name.value = profileName.textContent;
+  business.value = profileBusiness.textContent;
+
+  openPopup();
+
+  container.addEventListener('submit', ()=>{
+    profileFormSubmitHandler(name, business);
+  });
+  close.addEventListener('click', closePopup);
+  
+  popup.append(container);
+};
+
+const profileFormSubmitHandler = function(name, business){
   event.preventDefault();
   profileName.textContent = name.value;
   profileBusiness.textContent = business.value;
   closePopup();
-}
+};
 
 
 /*==============================addCards============================*/
-function renderCards(){
+const createCard = function(name, link){  
+  const container = cardTemplate.cloneNode(true);
+  const place = container.querySelector('.element__title');
+  const image = container.querySelector('.element__image');
+  const like = container.querySelector('.element__like');
+  const basket = container.querySelector('.element__basket');
+  const element = container.querySelector('.element');
+
+  place.textContent = name;
+  image.src = link;
+  image.alt = name;
+
+  like.addEventListener('click', ()=>{
+    likeCard(like);
+  });
+  basket.addEventListener('click', ()=>{
+    element.remove();
+  });
+  image.addEventListener('click', ()=>{
+    createPopupImage(name, link);
+  });
+
+  elements.prepend(container);
+};
+
+const renderCards = function(){
   initialCards.forEach(item =>{
     createCard(item.name, item.link);
   });  
-}
+};
+
 renderCards();
 
-function createCard(name, link){
-  let container = cardTemplate.cloneNode(true);
-  container.querySelector('.element__title').textContent = name;
-  const image = container.querySelector('.element__image');
-  image.src = link;
-  image.alt = name;
-  const like = container.querySelector('.element__like');
-  const basket = container.querySelector('.element__basket');
-  const element = container.querySelector('.element');
-  like.addEventListener('click', ()=>{
-    likeCard(like);
-  });
-  basket.addEventListener('click', ()=>{
-    element.remove();
-  });
-  image.addEventListener('click', ()=>{
-    createPopupImage(name, link);
-  });
-  elements.append(container);
-}
-
-function showCardPopup(){
-  const content = popupTemplate.cloneNode(true);
-  popup.innerHTML = "";
-  const container = content.querySelector('.popup__container');
-  container.innerHTML = `<h2 class="popup__title">Новое место</h2>
-  <input type="text" class="popup__input popup__input_place_name" name="edit-name" placeholder="Название">
-  <input type="text" class="popup__input popup__input_place_link" name="edit-business" placeholder="Ссылка на картинку">
-  <button class="popup__button" type="submit">Сохранить</button>
-  <button class="popup__close" type="button"></button>`;  
-  openPopup();  
-  const close = content.querySelector('.popup__close');
+const showCardPopup = function (){  
+  const content = formCardTemplate.cloneNode(true);
+  const container = content.querySelector('.popup__container');  
   const name = content.querySelector('.popup__input_place_name');
-  const link = content.querySelector('.popup__input_place_link');
+  const link = content.querySelector('.popup__input_place_source');
+  const close = content.querySelector('.popup__close');
+
+  popup.innerHTML = "";
+  openPopup();  
   close.addEventListener('click', closePopup);
   container.addEventListener('submit', ()=>{
-    addCard(name.value = "Название места", link.value);
+    event.preventDefault();
+    createCard(name.value, link.value);
+    closePopup();
   });  
-  popup.append(container);
-}
-
-function addCard(name = "", link){
-  event.preventDefault();
-  let container = cardTemplate.cloneNode(true);
-  container.querySelector('.element__title').textContent = name;
-  const image = container.querySelector('.element__image');
-  image.src = link;
-  image.alt = name;
-  const like = container.querySelector('.element__like');
-  const basket = container.querySelector('.element__basket');
-  const element = container.querySelector('.element');
-  like.addEventListener('click', ()=>{
-    likeCard(like);
-  });
-  basket.addEventListener('click', ()=>{
-    element.remove();
-  });
-  image.addEventListener('click', ()=>{
-    createPopupImage(name, link);
-  });
-  elements.prepend(container);
-  closePopup();
-}
+  popup.append(content);
+};
 
 const likeCard = function(element){
   element.classList.toggle('element__like_active');
@@ -173,9 +145,6 @@ function createPopupImage(name, link){
   popup.append(content);
 }
 
-
-
-
 /*==============================commonFunctions============================*/
 function openPopup(){
   popup.classList.add('popup_opened');
@@ -187,8 +156,6 @@ function closePopup(){
 }
 
 
-
-
-
-editProfile.addEventListener('click', showProfilePopup);
-addCardButton.addEventListener('click', showCardPopup);
+/*==============================eventListeners============================*/
+profileButton.addEventListener('click', showProfilePopup);
+cardButton.addEventListener('click', showCardPopup);

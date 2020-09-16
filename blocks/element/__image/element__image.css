@@ -1,7 +1,7 @@
 .element__image{
   width: 100%;
   max-width: 282px;
-  height: 100%;
+  min-height: 282px;
   max-height: 282px;
   vertical-align: bottom;
   object-fit: cover;
