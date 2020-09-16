@@ -127,7 +127,7 @@ const likeCard = function(element){
 
 /*==============================imageReview============================*/
 function createPopupImage(name, link){
-  let container = imageTemplate.cloneNode(true);
+  const container = imageTemplate.cloneNode(true);
   popup.innerHTML = "";
   const content = container.querySelector('.popup__figure');
   const place = content.querySelector('.popup__figcaption');
