@@ -14,8 +14,8 @@
   }
 }
 
-@media screen and (max-height: 360px){
+@media screen and (max-height: 399px){
   .popup__title{
-    margin: 10px 0 20px;
+    margin: 20px 0;
   }
 }
