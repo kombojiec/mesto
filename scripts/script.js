@@ -5,14 +5,20 @@ const profileButton = document.querySelector('.profile__edit-button');
 const popupProfile = document.querySelector('.popup_form_profile');
 const profileName = document.querySelector('.profile__name');
 const profileBusiness = document.querySelector('.profile__business');
+const authorInput = popupProfile.querySelector('.popup__input_place_name');
+const businessInput = popupProfile.querySelector('.popup__input_place_business');
+const closeProfileButton = popupProfile.querySelector('.popup__close_place_profile');
 const cardButton = document.querySelector('.profile__add-button');
 const popupCard = document.querySelector('.popup_form_card');
 const cardTemplate = document.querySelector('.elements__template').content;
 const elements = document.querySelector('.elements');
 const placeInputCard = popupCard.querySelector('.popup__input_place_place-name');
 const sourceInputCard = popupCard.querySelector('.popup__input_place_source');
+const closeCardButton = popupCard.querySelector('.popup__close_place_card');
 const popupImage = document.querySelector('.popup_image');
-const closePopupButtons = document.querySelectorAll('.popup__close');
+const imagePlace = popupImage.querySelector('.popup__figcaption');
+const imageSource = popupImage.querySelector('.popup__image');
+const closeImageButton = popupImage.querySelector('.popup__close_place_image');
 
 const initialCards = [{
     name: 'Архыз',
@@ -41,26 +47,27 @@ const initialCards = [{
 ];
 
 /*==============================editProfile============================*/
-const showProfilePopup = function () {
-  const name = popupProfile.querySelector('.popup__input_place_name');
-  const business = popupProfile.querySelector('.popup__input_place_business');
-
-  name.value = profileName.textContent;
-  business.value = profileBusiness.textContent;
+const showProfilePopup = function () { 
+  authorInput.value = profileName.textContent;
+  businessInput.value = profileBusiness.textContent;
 
   openPopup(popupProfile);
-
-  popupProfile.addEventListener('submit', () => {
-    handleSubmitProfileForm(name, business);
-  });
 };
 
-const handleSubmitProfileForm = function (name, business) {
+const handleSubmitProfileForm = function() {
   event.preventDefault();
-  profileName.textContent = name.value;
-  profileBusiness.textContent = business.value;
-  closePopup();
+  profileName.textContent = authorInput.value;
+  profileBusiness.textContent = businessInput.value;
+  closePopup(popupProfile);
 };
+
+popupProfile.addEventListener('submit', () => {
+  handleSubmitProfileForm();
+});
+
+closeProfileButton.addEventListener('click',()=>{
+  closePopup(popupProfile);
+});
 
 
 /*==============================addCards============================*/
@@ -73,7 +80,7 @@ const showCardPopup = function(){
 const handleSubmitCardForm = function(name, link){
   event.preventDefault();
   elements.prepend(createCard(name,link));
-  closePopup();
+  closePopup(popupCard);
 };
 
 const createCard = function (name, link) {
@@ -117,32 +124,32 @@ popupCard.addEventListener("submit", ()=>{
   handleSubmitCardForm(placeInputCard.value, sourceInputCard.value);  
 });
 
+closeCardButton.addEventListener('click',()=>{
+  closePopup(popupCard);
+});
 
 
 /*==============================imageReview============================*/
 function showImagePopup(name, link) {
   openPopup(popupImage);
-  const place = popupImage.querySelector('.popup__figcaption');
-  const source = popupImage.querySelector('.popup__image');
-  place.textContent = name;
-  source.src = link;
-  source.alt = name;
+  imagePlace.textContent = name;
+  imageSource.src = link;
+  imageSource.alt = name;
 }
+
+closeImageButton.addEventListener('click', ()=>{
+  closePopup(popupImage);
+});
 
 /*==============================commonFunctions============================*/
 function openPopup(popup) {
   popup.classList.add('popup_opened');
 }
 
-function closePopup() {
-  popups.forEach(item => {
-    item.classList.remove('popup_opened');
-  });
+function closePopup(popup) {  
+  popup.classList.remove('popup_opened');    
 }
 
 /*==============================eventListeners============================*/
 profileButton.addEventListener('click', showProfilePopup);
 cardButton.addEventListener('click', showCardPopup);
-closePopupButtons.forEach(item =>{
-  item.addEventListener('click', closePopup);
-});
