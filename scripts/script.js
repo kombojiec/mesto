@@ -1,16 +1,18 @@
 'use strict';
 
-const profileButton = document.querySelector('.profile__edit-button');
-const cardButton = document.querySelector('.profile__add-button');
-const closePopupButtons = document.querySelectorAll('.popup__close');
 const popups = document.querySelectorAll('.popup');
+const profileButton = document.querySelector('.profile__edit-button');
 const popupProfile = document.querySelector('.popup_form_profile');
-const popupCard = document.querySelector('.popup_form_card');
-const popupImage = document.querySelector('.popup_image');
 const profileName = document.querySelector('.profile__name');
 const profileBusiness = document.querySelector('.profile__business');
-const elements = document.querySelector('.elements');
+const cardButton = document.querySelector('.profile__add-button');
+const popupCard = document.querySelector('.popup_form_card');
 const cardTemplate = document.querySelector('.elements__template').content;
+const elements = document.querySelector('.elements');
+const placeInputCard = popupCard.querySelector('.popup__input_place_place-name');
+const sourceInputCard = popupCard.querySelector('.popup__input_place_source');
+const popupImage = document.querySelector('.popup_image');
+const closePopupButtons = document.querySelectorAll('.popup__close');
 
 const initialCards = [{
     name: 'Архыз',
@@ -63,14 +65,9 @@ const handleSubmitProfileForm = function (name, business) {
 
 /*==============================addCards============================*/
 const showCardPopup = function(){  
-  const place = popupCard.querySelector('.popup__input_place_place-name');
-  const link = popupCard.querySelector('.popup__input_place_source');
-  place.value = "";
-  link.value = "";
+  placeInputCard.value = "";
+  sourceInputCard.value = "";  
   openPopup(popupCard);
-  popupCard.addEventListener('submit', ()=>{
-    handleSubmitCardForm(place.value, link.value);
-  });
 };
 
 const handleSubmitCardForm = function(name, link){
@@ -104,17 +101,22 @@ const createCard = function (name, link) {
   return container;
 };
 
+const likeCard = function (element) {
+  element.classList.toggle('element__like_active');
+};
+
 const renderCards = function () {
   initialCards.forEach(item => {
     elements.append(createCard(item.name, item.link));
   });
 };
 
-// renderCards();
+renderCards();
 
-const likeCard = function (element) {
-  element.classList.toggle('element__like_active');
-};
+popupCard.addEventListener("submit", ()=>{
+  handleSubmitCardForm(placeInputCard.value, sourceInputCard.value);  
+});
+
 
 
 /*==============================imageReview============================*/
