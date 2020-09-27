@@ -49,29 +49,33 @@
 
       <!--=================PopUp=================== -->
       <section class="popup popup_form_profile">       
-        <form action="#" class="popup__container">
+        <form action="#" class="popup__form" novalidate>
           <h2 class="popup__title">Редактировать профиль</h2>
-          <input type="text" class="popup__input popup__input_place_name" name="edit-name">
-          <input type="text" class="popup__input popup__input_place_business" name="edit-business">
+          <input type="text" class="popup__input popup__input_place_name" name="edit-name" id="edit-name" minlength="2" maxlength="40" required>
+          <label class="popup__input-error" for="edit-name" id="edit-name-error"></label>
+          <input type="text" class="popup__input popup__input_place_business" name="edit-business" id="edit-business" minlength="2" maxlength="200" required>
+          <label class="popup__input-error" for="edit-business" id="edit-business-error"></label>
           <button class="popup__button" type="submit">Сохранить</button>
           <button class="popup__close popup__close_place_profile" type="button"></button>
         </form>
       </section>
 
       <section class="popup popup_form_card">
-        <form action="#" class="popup__container">
+        <form action="#" class="popup__form" novalidate>
           <h2 class="popup__title">Новое место</h2>
-          <input type="text" class="popup__input popup__input_place_place-name" name="card-name" placeholder="Название">
-          <input type="text" class="popup__input popup__input_place_source" name="card-sourse" placeholder="Ссылка на картинку">
-          <button class="popup__button" type="submit">Добавить</button>
+          <input type="text" class="popup__input popup__input_place_place-name" name="card-name" id="card-name" placeholder="Название" minlength="2" maxlength="30" required>
+          <label class="popup__input-error" for="card-name" id="card-name-error"></label>
+          <input type="url" class="popup__input popup__input_place_source" name="card-sourse" id="card-sourse" placeholder="Ссылка на картинку" required>
+          <label class="popup__input-error" for="card-sourse" id="card-sourse-error"></label>
+          <button class="popup__button" type="submit">Создать</button>
           <button class="popup__close popup__close_place_card" type="button"></button>
         </form>
       </section>
 
       <section class="popup popup_image popup_dark">
         <figure class="popup__figure">
-          <img class="popup__image" src=""
-                alt="">
+          <img class="popup__image" src="#"
+                alt="#">
           <button class="popup__close popup__close_place_image" type="button"></button>
           <figcaption class="popup__figcaption"></figcaption>
         </figure>
@@ -84,6 +88,7 @@
       <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
     </footer>    
   </div>  
-<script src="./scripts/script.js"></script>
+  <script src="./scripts/script.js"></script>
+  <script src="./scripts/validate.js"></script>
 </body>
 </html>
