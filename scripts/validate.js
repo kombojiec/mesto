@@ -32,7 +32,6 @@ function toggleButtonState(inputList, formButton, object){
   if(hasInvalidInput(inputList)){
     formButton.setAttribute('disabled', true);
     formButton.classList.add(object.inactiveButtonClass);
-    console.log('button before check');
   }else{
     formButton.removeAttribute('disabled', true);
     formButton.classList.remove(object.inactiveButtonClass);
