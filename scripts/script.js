@@ -11,7 +11,7 @@ const closeProfileButton = popupProfile.querySelector('.popup__close_place_profi
 const cardButton = document.querySelector('.profile__add-button');
 const popupCard = document.querySelector('.popup_form_card');
 const cardTemplate = document.querySelector('.elements__template').content;
-const elements = document.querySelector('.elements');
+const cardSection = document.querySelector('.elements');
 const placeInputCard = popupCard.querySelector('.popup__input_place_place-name');
 const sourceInputCard = popupCard.querySelector('.popup__input_place_source');
 const closeCardButton = popupCard.querySelector('.popup__close_place_card');
@@ -74,18 +74,21 @@ closeProfileButton.addEventListener('click',(event)=>{
 
 /*==============================addCards============================*/
 const showCardPopup = function(){  
-  placeInputCard.value = "";
-  sourceInputCard.value = "";  
+  const cardButton = popupCard.querySelector('.popup__button');
+  popupCard.querySelector('.popup__form').reset(); 
+  cardButton.setAttribute('disabled', true);
+  cardButton.classList.add('popup__button_disabled');
+  
   openPopup(popupCard);
 };
 
 const handleSubmitCardForm = function(name, link){
   event.preventDefault();
-  elements.prepend(createCard(name,link));
+  cardSection.prepend(getCardElement(name,link));
   closePopup(popupCard);
 };
 
-const createCard = function (name, link) {
+const getCardElement = function (name, link) {
   const container = cardTemplate.cloneNode(true);
   const place = container.querySelector('.element__title');
   const image = container.querySelector('.element__image');
@@ -116,7 +119,7 @@ const likeCard = function (element) {
 
 const renderCards = function () {
   initialCards.forEach(item => {
-    elements.append(createCard(item.name, item.link));
+    cardSection.append(getCardElement(item.name, item.link));
   });
 };
 
@@ -146,23 +149,25 @@ closeImageButton.addEventListener('click', ()=>{
 /*==============================commonFunctions============================*/
 function openPopup(popup) {
   popup.classList.add('popup_opened');
-  document.addEventListener('keydown', event =>{
-    escapePopup(popup);
-  });
+  document.addEventListener('keydown', escapePopup);  
 }
 
 function closePopup(popup) {  
   popup.classList.remove('popup_opened');  
-  document.removeEventListener('keydown',escapePopup);  
+  document.removeEventListener('keydown', escapePopup);  
 }
 
-function escapePopup(popup){    
+const escapePopup = function(event){    
   if(event.key === "Escape"){
-    closePopup(popup);
+    popups.forEach(popup =>{
+      if(popup.classList.contains('popup_opened')){
+        closePopup(popup);
+      }
+    });
   }  
-}
+};
 
-function ClosePopupOutside(){
+function closePopupOutside(){
   popups.forEach(popup => {
     popup.addEventListener('click', event =>{
       if(event.target === event.currentTarget){
@@ -171,7 +176,7 @@ function ClosePopupOutside(){
     });    
   });
 }
-ClosePopupOutside();
+closePopupOutside();
 
 
 /*==============================eventListeners============================*/
