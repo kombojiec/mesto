@@ -4,6 +4,8 @@
 import {initialCards, formObject} from './objects.js';
 import Card from './card.js';
 import FormValidator from './validation.js';
+import {openPopup, closePopup, escapePopup} from './utils.js';
+import disableButton from './utils.js';
 
 /*==============================variables============================*/
 const popups = document.querySelectorAll('.popup');
@@ -53,7 +55,7 @@ closeProfileButton.addEventListener('click',(event)=>{
 const showCardPopup = function(){  
   const cardButton = popupCard.querySelector('.popup__button');
   popupCard.querySelector('.popup__form').reset(); 
-  cardButton.setAttribute('disabled', true);
+  disableButton(cardButton);
   cardButton.classList.add('popup__button_disabled');
   
   openPopup(popupCard);
@@ -79,13 +81,6 @@ closeCardButton.addEventListener('click',()=>{
   closePopup(popupCard);
 });
 
-/*==============================imagePopup============================*/
-imageButtons.forEach(button => {
-  button.addEventListener('click', ()=>{
-    closePopup(popupImage);
-  });
-});
-
 /*==============================validationForms============================*/
 const forms = document.querySelectorAll(formObject.formSelector);
 forms.forEach(form => {
@@ -93,37 +88,6 @@ forms.forEach(form => {
   formValidator.enableValidation();
 });
 
-/*==============================commonFunctions============================*/
-function openPopup(popup) {
-  popup.classList.add('popup_opened');
-  document.addEventListener('keydown', escapePopup);  
-}
-
-function closePopup(popup) {  
-  popup.classList.remove('popup_opened');  
-  document.removeEventListener('keydown', escapePopup);  
-}
-
-const escapePopup = function(event){    
-  if(event.key === "Escape"){
-    popups.forEach(popup =>{
-      if(popup.classList.contains('popup_opened')){
-        closePopup(popup);
-      }
-    });
-  }  
-};
-
-function closePopupOutside(){
-  popups.forEach(popup => {
-    popup.addEventListener('click', event =>{
-      if(event.target === event.currentTarget){
-        closePopup(popup);
-      }
-    });    
-  });
-}
-closePopupOutside();
 
 /*==============================eventListeners============================*/
 profileButton.addEventListener('click', showProfilePopup);

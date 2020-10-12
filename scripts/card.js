@@ -1,9 +1,12 @@
+import {openPopup, closePopup, escapePopup} from './utils.js';
+
 class Card{
   constructor(name, link, template){
     this._name = name;
     this._link = link;
     this._template = template;  
-    // this._popups = document.querySelectorAll('.popup');
+    this._popup = document.querySelector('.popup_image');
+    this._popupFigureImage = document.querySelector('.popup__image');
   }
 
   _getTemplate(){
@@ -28,6 +31,7 @@ class Card{
 
   _removeCard(){
     this._element.remove();
+    this._element = null;
   }
 
   _toggleLike(){
@@ -35,23 +39,13 @@ class Card{
   }
 
   _showPicturePopup(){
-    const popup = document.querySelector('.popup_image');
-    popup.querySelector('.popup__image').src = this._link;
-    popup.querySelector('.popup__image').alt = this._name;
-    popup.querySelector('.popup__figcaption').textContent = this._name;
-    popup.classList.add('popup_opened');    
-    document.addEventListener('keydown', this._escapePopup, {once:true});
-  }
-
-  _escapePopup(event){    
-    if(event.key === "Escape"){
-      const popups = document.querySelectorAll('.popup');
-      popups.forEach(popup => {
-        if(popup.classList.contains('popup_opened')){
-          popup.classList.remove('popup_opened');  
-        }
-      });     
-    }  
+    this._popupFigureImage.src = this._link;
+    this._popupFigureImage.alt = this._name;
+    this._popup.querySelector('.popup__figcaption').textContent = this._name;
+    openPopup(this._popup);  
+    this._popup.addEventListener('click', ()=>{
+      closePopup(this._popup);
+    }); 
   }
 
   createCardElement(){

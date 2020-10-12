@@ -1,3 +1,5 @@
+import disableButton from './utils.js';
+
 class FormValidator{
   constructor(object, formElement){
     this._form = formElement;
@@ -39,7 +41,7 @@ class FormValidator{
 
   _toggleButtonState(){
     if(this._hasInvalidInput()){      
-      this._submitButton.setAttribute('disabled', true);
+      disableButton(this._submitButton);
       this._submitButton.classList.add(this._inactiveButton);
     }else{
       this._submitButton.removeAttribute('disabled', true);
