@@ -3,7 +3,7 @@ class Card{
     this._name = name;
     this._link = link;
     this._template = template;  
-    this._popup = document.querySelector('.popup_image');
+    // this._popups = document.querySelectorAll('.popup');
   }
 
   _getTemplate(){
@@ -48,7 +48,6 @@ class Card{
       const popups = document.querySelectorAll('.popup');
       popups.forEach(popup => {
         if(popup.classList.contains('popup_opened')){
-          console.log(popup);
           popup.classList.remove('popup_opened');  
         }
       });     

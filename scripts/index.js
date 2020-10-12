@@ -21,6 +21,7 @@ const cardSection = document.querySelector('.elements');
 const placeInputCard = popupCard.querySelector('.popup__input_place_place-name');
 const sourceInputCard = popupCard.querySelector('.popup__input_place_source');
 const closeCardButton = popupCard.querySelector('.popup__close_place_card');
+const imageButtons = document.querySelectorAll('.popup__close_place_image');
 const popupImage = document.querySelector('.popup_image');
 
 /*==============================editProfile============================*/
@@ -76,6 +77,13 @@ popupCard.addEventListener("submit", ()=>{
 
 closeCardButton.addEventListener('click',()=>{
   closePopup(popupCard);
+});
+
+/*==============================imagePopup============================*/
+imageButtons.forEach(button => {
+  button.addEventListener('click', ()=>{
+    closePopup(popupImage);
+  });
 });
 
 /*==============================validationForms============================*/
