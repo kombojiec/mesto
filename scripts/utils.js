@@ -1,11 +1,6 @@
 function openPopup(popup) {
   popup.classList.add('popup_opened');
-  document.addEventListener('keydown', escapePopup);  
-  popup.addEventListener('click', event =>{
-    if(event.target === event.currentTarget){
-      closePopup(popup);
-    }
-  });
+  document.addEventListener('keydown', escapePopup);    
 }
 
 function closePopup(popup) {  
@@ -14,19 +9,19 @@ function closePopup(popup) {
 }
 
 const escapePopup = function(event){ 
-  const popups = document.querySelectorAll('.popup');   
   if(event.key === "Escape"){
-    popups.forEach(popup =>{
-      if(popup.classList.contains('popup_opened')){
-        closePopup(popup);
-      }
-    });
+        closePopup(document.querySelector('.popup_opened'));
   }  
 };
 
-export {openPopup, closePopup, escapePopup};
-
-function disableButton(button){
-  button.setAttribute('disabled', true);
+function closePopupOutside(){ 
+  document.querySelectorAll('.popup').forEach(popup => { 
+    popup.addEventListener('click', event =>{ 
+      if(event.target === event.currentTarget){ 
+        closePopup(popup); 
+      } 
+    });     
+  }); 
 }
-export default disableButton;
+
+export {openPopup, closePopup, escapePopup, closePopupOutside};

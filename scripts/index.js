@@ -4,11 +4,9 @@
 import {initialCards, formObject} from './objects.js';
 import Card from './card.js';
 import FormValidator from './validation.js';
-import {openPopup, closePopup, escapePopup} from './utils.js';
-import disableButton from './utils.js';
+import {openPopup, closePopup, closePopupOutside} from './utils.js';
 
 /*==============================variables============================*/
-const popups = document.querySelectorAll('.popup');
 const profileButton = document.querySelector('.profile__edit-button');
 const popupProfile = document.querySelector('.popup_form_profile');
 const profileName = document.querySelector('.profile__name');
@@ -23,8 +21,6 @@ const cardSection = document.querySelector('.elements');
 const placeInputCard = popupCard.querySelector('.popup__input_place_place-name');
 const sourceInputCard = popupCard.querySelector('.popup__input_place_source');
 const closeCardButton = popupCard.querySelector('.popup__close_place_card');
-const imageButtons = document.querySelectorAll('.popup__close_place_image');
-const popupImage = document.querySelector('.popup_image');
 
 /*==============================editProfile============================*/
 authorInput.value = profileName.textContent;
@@ -55,7 +51,6 @@ closeProfileButton.addEventListener('click',(event)=>{
 const showCardPopup = function(){  
   const cardButton = popupCard.querySelector('.popup__button');
   popupCard.querySelector('.popup__form').reset(); 
-  disableButton(cardButton);
   cardButton.classList.add('popup__button_disabled');
   
   openPopup(popupCard);
@@ -87,6 +82,9 @@ forms.forEach(form => {
   const formValidator = new FormValidator(formObject, form);
   formValidator.enableValidation();
 });
+
+/*==============================commonFunctions============================*/
+closePopupOutside(); 
 
 
 /*==============================eventListeners============================*/

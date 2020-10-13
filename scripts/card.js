@@ -1,4 +1,4 @@
-import {openPopup, closePopup, escapePopup} from './utils.js';
+import {openPopup, closePopup} from './utils.js';
 
 class Card{
   constructor(name, link, template){
@@ -43,7 +43,7 @@ class Card{
     this._popupFigureImage.alt = this._name;
     this._popup.querySelector('.popup__figcaption').textContent = this._name;
     openPopup(this._popup);  
-    this._popup.addEventListener('click', ()=>{
+    this._popup.querySelector('.popup__close').addEventListener('click', ()=>{
       closePopup(this._popup);
     }); 
   }
