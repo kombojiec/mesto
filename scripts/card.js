@@ -42,10 +42,7 @@ class Card{
     this._popupFigureImage.src = this._link;
     this._popupFigureImage.alt = this._name;
     this._popup.querySelector('.popup__figcaption').textContent = this._name;
-    openPopup(this._popup);  
-    this._popup.querySelector('.popup__close').addEventListener('click', ()=>{
-      closePopup(this._popup);
-    }); 
+    openPopup(this._popup);      
   }
 
   createCardElement(){
