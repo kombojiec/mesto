@@ -19,7 +19,13 @@ export default class Popup{
     }
   }
 
-  setEventListeners(){    
+  setEventListeners(){
+    this._popup.addEventListener('click', (event) => {
+      this._handleEscClose(event);
+      if(event.target.classList.contains(this._popup)){
+        this.close();
+      }
+    });
     this._popup.querySelector('.close__popup').addEventListener('click', this.close);
   }
 
