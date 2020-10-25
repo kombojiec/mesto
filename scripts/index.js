@@ -5,7 +5,8 @@ import {initialCards, formObject} from './objects.js';
 import Card from './card.js';
 import FormValidator from './validation.js';
 import {openPopup, closePopup, closePopupOutside} from './utils.js';
-import Section from '../components/section.js';
+import Section from '../components/Section.js';
+import Popup from '../components/Popup.js';
 
 /*==============================variables============================*/
 const profileButton = document.querySelector('.profile__edit-button');
