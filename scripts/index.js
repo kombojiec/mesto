@@ -21,9 +21,6 @@ const cardSection = document.querySelector('.elements');
 const placeInputCard = popupCard.querySelector('.popup__input_place_place-name');
 const sourceInputCard = popupCard.querySelector('.popup__input_place_source');
 const closeCardButton = popupCard.querySelector('.popup__close_place_card');
-const popupImage = document.querySelector('.popup_image');
-const closeImageButton = popupImage.querySelector('.popup__close_place_image');
-const forms = document.querySelectorAll(formObject.formSelector);
 
 /*==============================editProfile============================*/
 authorInput.value = profileName.textContent;
@@ -54,7 +51,8 @@ closeProfileButton.addEventListener('click',(event)=>{
 const showCardPopup = function(){  
   const cardButton = popupCard.querySelector('.popup__button');
   popupCard.querySelector('.popup__form').reset(); 
-  formCardValidator.disableButton(cardButton);
+  cardButton.classList.add('popup__button_disabled');
+  
   openPopup(popupCard);
 };
 
@@ -79,17 +77,16 @@ closeCardButton.addEventListener('click',()=>{
 });
 
 /*==============================validationForms============================*/
-  const formProfileValidator = new FormValidator(formObject, forms[0]);
-  formProfileValidator.enableValidation();
-  const formCardValidator = new FormValidator(formObject, forms[1]);
-  formCardValidator.enableValidation();
+const forms = document.querySelectorAll(formObject.formSelector);
+forms.forEach(form => {
+  const formValidator = new FormValidator(formObject, form);
+  formValidator.enableValidation();
+});
 
 /*==============================commonFunctions============================*/
 closePopupOutside(); 
 
+
 /*==============================eventListeners============================*/
 profileButton.addEventListener('click', showProfilePopup);
 cardButton.addEventListener('click', showCardPopup);
-closeImageButton.addEventListener('click', ()=>{
-  closePopup(popupImage);
-});
