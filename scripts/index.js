@@ -7,6 +7,9 @@ import FormValidator from './validation.js';
 import {openPopup, closePopup, closePopupOutside} from './utils.js';
 import Section from '../components/Section.js';
 import Popup from '../components/Popup.js';
+import PopupWithImage from '../components/PopupWithImage.js';
+import PopupWithForm from '../components/PopupWithForm.js';
+
 
 /*==============================variables============================*/
 const profileButton = document.querySelector('.profile__edit-button');
@@ -53,12 +56,6 @@ closeProfileButton.addEventListener('click',(event)=>{
 });
 
 /*==============================addCards============================*/
-const showCardPopup = function(){  
-  const cardButton = popupCard.querySelector('.popup__button');
-  popupCard.querySelector('.popup__form').reset(); 
-  formCardValidator.disableButton(cardButton);
-  openPopup(popupCard);
-};
 
 const renderCards = function () {
   initialCards.forEach(item => {
@@ -68,17 +65,6 @@ const renderCards = function () {
 };
 
 renderCards();
-
-popupCard.addEventListener("submit", ()=>{
-  event.preventDefault();
-  const card = new Card(placeInputCard.value, sourceInputCard.value, cardTemplate);  
-  cardSection.prepend(card.createCardElement()); 
-  closePopup(popupCard); 
-});
-
-closeCardButton.addEventListener('click',()=>{
-  closePopup(popupCard);
-});
 
 /*==============================validationForms============================*/
   const formProfileValidator = new FormValidator(formObject, forms[0]);
@@ -91,7 +77,21 @@ closePopupOutside();
 
 /*==============================eventListeners============================*/
 profileButton.addEventListener('click', showProfilePopup);
-cardButton.addEventListener('click', showCardPopup);
 closeImageButton.addEventListener('click', ()=>{
   closePopup(popupImage);
 });
+
+const newPopup = new PopupWithForm({formSelector: forms[1],
+  popupSelector: '.popup_form_card'}, (inputData)=>{
+    const card = new Card(inputData['card-name'], inputData['card-sourse'], cardTemplate);  
+    cardSection.prepend(card.createCardElement()); 
+    newPopup.close();
+  });
+
+  newPopup.setEventListeners();
+  cardButton.addEventListener('click', ()=>{
+    newPopup.open();
+    formCardValidator.disableButton(forms[1].querySelector('.popup__button'));
+});
+
+

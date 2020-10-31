@@ -15,13 +15,13 @@ const escapePopup = function(event){
 };
 
 function closePopupOutside(){ 
-  document.querySelectorAll('.popup').forEach(popup => { 
-    popup.addEventListener('click', event =>{ 
-      if(event.target === event.currentTarget){ 
-        closePopup(popup); 
-      } 
-    });     
-  }); 
+  // document.querySelectorAll('.popup').forEach(popup => { 
+  //   popup.addEventListener('click', event =>{ 
+  //     if(event.target === event.currentTarget){ 
+  //       closePopup(popup); 
+  //     } 
+  //   });     
+  // }); 
 }
 
 export {openPopup, closePopup, escapePopup, closePopupOutside};
