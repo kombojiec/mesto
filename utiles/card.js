@@ -1,5 +1,3 @@
-// import {openPopup, closePopup} from './utils.js';
-
 class Card{
   constructor(name, link, template, handleCardClick){
     this._name = name;
