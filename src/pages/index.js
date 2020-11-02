@@ -1,6 +1,7 @@
 'use strict';
 
 /*==============================modules============================*/
+import './index.css';
 import {initialCards, formObject, profileButton, 
         authorInput, businessInput, 
         cardButton, cardTemplate, cardSection,
