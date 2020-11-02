@@ -1,7 +1,10 @@
 'use strict';
 
 /*==============================modules============================*/
-import {initialCards, formObject} from '../utiles/objects.js';
+import {initialCards, formObject, profileButton, 
+  authorInput, businessInput, 
+  cardButton, cardTemplate, cardSection,
+  forms} from '../utiles/constants.js';
 import Card from '../utiles/card.js';
 import FormValidator from '../utiles/validation.js';
 import Section from '../components/Section.js';
@@ -11,23 +14,23 @@ import UserInfo from '../components/UserInfo.js';
 
 
 /*==============================variables============================*/
-const profileButton = document.querySelector('.profile__edit-button');
-const popupProfile = document.querySelector('.popup_form_profile');
+// const profileButton = document.querySelector('.profile__edit-button');
+// const popupProfile = document.querySelector('.popup_form_profile');
 // const profileName = document.querySelector('.profile__name');
 // const profileBusiness = document.querySelector('.profile__business');
-const authorInput = popupProfile.querySelector('.popup__input_place_name');
-const businessInput = popupProfile.querySelector('.popup__input_place_business');
+// const authorInput = popupProfile.querySelector('.popup__input_place_name');
+// const businessInput = popupProfile.querySelector('.popup__input_place_business');
 // const closeProfileButton = popupProfile.querySelector('.popup__close_place_profile');
-const cardButton = document.querySelector('.profile__add-button');
-const popupCard = document.querySelector('.popup_form_card');
-const cardTemplate = document.querySelector('.elements__template');
-const cardSection = document.querySelector('.elements');
+// const cardButton = document.querySelector('.profile__add-button');
+// const popupCard = document.querySelector('.popup_form_card');
+// const cardTemplate = document.querySelector('.elements__template');
+// const cardSection = document.querySelector('.elements');
 // const placeInputCard = popupCard.querySelector('.popup__input_place_place-name');
 // const sourceInputCard = popupCard.querySelector('.popup__input_place_source');
 // const closeCardButton = popupCard.querySelector('.popup__close_place_card');
-const popupImage = document.querySelector('.popup_image');
+// const popupImage = document.querySelector('.popup_image');
 // const closeImageButton = popupImage.querySelector('.popup__close_place_image');
-const forms = document.querySelectorAll(formObject.formSelector);
+// const forms = document.querySelectorAll(formObject.formSelector);
 
 /*==============================editProfile============================*/
 const profileInfo = new UserInfo({
