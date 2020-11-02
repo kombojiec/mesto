@@ -4,9 +4,7 @@
 import {initialCards, formObject} from './objects.js';
 import Card from './card.js';
 import FormValidator from './validation.js';
-import {openPopup, closePopup, closePopupOutside} from './utils.js';
 import Section from '../components/Section.js';
-import Popup from '../components/Popup.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
@@ -54,27 +52,34 @@ showProfilePopup.setEventListeners();
 
 
 /*==============================addCards============================*/
-
-const renderCards = function () {
-  initialCards.forEach(item => {
-    const card = new Card(item.name,item.link, cardTemplate);
-    cardSection.append(card.createCardElement());
-  });
+const imagePopup = new PopupWithImage('.popup_image');
+imagePopup.setEventListeners();
+const handleCardClick = (name, link)=>{
+  imagePopup.open(name, link);
 };
-renderCards();
+
+const renderCard = new Section({
+  items: initialCards,
+  renderer: (item) => {
+    const card = new Card(item.name,item.link, cardTemplate,  handleCardClick);
+      
+    renderCard.addItem(card.createCardElement());
+  }
+}, '.elements');
+
+renderCard.renderItems();
 
 const newPopup = new PopupWithForm({formSelector: forms[1],
   popupSelector: '.popup_form_card'}, 
   (inputData)=>{
-    const card = new Card(inputData['card-name'], inputData['card-sourse'], cardTemplate);  
+    const card = new Card(inputData['card-name'], inputData['card-sourse'], cardTemplate, handleCardClick);  
     cardSection.prepend(card.createCardElement()); 
-    newPopup.close();
-  });
+});
 
-  newPopup.setEventListeners();
-  cardButton.addEventListener('click', ()=>{
-    newPopup.open();
-    formCardValidator.disableButton(forms[1].querySelector('.popup__button'));
+newPopup.setEventListeners();
+cardButton.addEventListener('click', ()=>{
+  newPopup.open();
+  formCardValidator.disableButton(forms[1].querySelector('.popup__button'));
 });
 
 /*==============================validationForms============================*/
@@ -82,15 +87,5 @@ const newPopup = new PopupWithForm({formSelector: forms[1],
   formProfileValidator.enableValidation();
   const formCardValidator = new FormValidator(formObject, forms[1]);
   formCardValidator.enableValidation();
-
-/*==============================commonFunctions============================*/
-// closePopupOutside(); 
-
-/*==============================eventListeners============================*/
-// profileButton.addEventListener('click', showProfilePopup);
-// closeImageButton.addEventListener('click', ()=>{
-//   closePopup(popupImage);
-// });
-
 
 
