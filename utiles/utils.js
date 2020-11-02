@@ -24,4 +24,4 @@ function closePopupOutside(){
   // }); 
 }
 
-export {openPopup, closePopup,  closePopupOutside};
+// export {openPopup, closePopup,  closePopupOutside};

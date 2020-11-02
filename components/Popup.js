@@ -20,21 +20,18 @@ export default class Popup{
   _handleEscClose(){    
     if(event.key === "Escape"){
       this.close();
-      console.log('EscClose');
     }
   }
 
   _closeOverlay(){
     if(event.target === event.currentTarget){
       this.close();
-      console.log('OverlayClose');
     }
   }
 
   setEventListeners(){   
     this._popup.querySelector('.popup__close').addEventListener('click', ()=>{
       this.close();
-      console.log('closeButton');
     });
   }  
 
