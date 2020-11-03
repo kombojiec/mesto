@@ -1,6 +1,5 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ASSET_PATH = process.env.ASSET_PATH || '/';
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
@@ -8,7 +7,7 @@ module.exports = {
 
   output: {
     filename: 'main.js',
-    publicPath: ASSET_PATH,
+    publicPath: '',
     path: path.resolve(__dirname, 'dist'),
   },
 
@@ -58,6 +57,5 @@ module.exports = {
   ), new MiniCssExtractPlugin()
   ],  
 
-  // mode: 'development',
-  // devtool: 'inline-source-map',
+  devtool: 'inline-source-map',
 };
