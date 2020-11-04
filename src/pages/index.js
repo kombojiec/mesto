@@ -6,8 +6,8 @@ import {initialCards, formObject, profileButton,
         authorInput, businessInput, 
         cardButton, cardTemplate, cardSection,
         forms} from '../utiles/constants.js';
-import Card from '../utiles/card.js';
-import FormValidator from '../utiles/validation.js';
+import Card from '../components/card.js';
+import FormValidator from '../components/validation.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
@@ -21,7 +21,7 @@ const profileInfo = new UserInfo({
 });
 
 const showProfilePopup = new PopupWithForm({
-  formSelector: forms[0],
+  formElement: forms[0],
   popupSelector: '.popup_form_profile',
 },(data) => {
   profileInfo.setUserInfo(data);
@@ -37,7 +37,11 @@ showProfilePopup.setEventListeners();
 
 
 /*==============================addCards============================*/
-const imagePopup = new PopupWithImage('.popup_image');
+const imagePopup = new PopupWithImage({
+  popupSelector: '.popup_image',
+  imageSelector: '.popup__image',
+  imageFigcaption: '.popup__figcaption'
+});
 imagePopup.setEventListeners();
 const handleCardClick = (name, link)=>{
   imagePopup.open(name, link);
@@ -54,11 +58,11 @@ const renderCard = new Section({
 
 renderCard.renderItems();
 
-const newPopup = new PopupWithForm({formSelector: forms[1],
+const newPopup = new PopupWithForm({formElement: forms[1],
   popupSelector: '.popup_form_card'}, 
   (inputData)=>{
     const card = new Card(inputData['card-name'], inputData['card-sourse'], cardTemplate, handleCardClick);  
-    cardSection.prepend(card.createCardElement()); 
+    renderCard.addItem(card.createCardElement(), true); 
 });
 
 newPopup.setEventListeners();

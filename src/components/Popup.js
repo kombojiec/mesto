@@ -17,13 +17,13 @@ export default class Popup{
     this._popup.removeEventListener('click', this._closeOverlay);
   }
 
-  _handleEscClose(){    
+  _handleEscClose(event){    
     if(event.key === "Escape"){
       this.close();
     }
   }
 
-  _closeOverlay(){
+  _closeOverlay(event){
     if(event.target === event.currentTarget){
       this.close();
     }

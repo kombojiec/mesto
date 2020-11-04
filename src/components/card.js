@@ -19,7 +19,6 @@ class Card{
   _setEventListeners(){
     this._element.querySelector('.element__basket').addEventListener('click', () =>{
       this._removeCard();
-      this._element = null;
     });
     this._element.querySelector('.element__like').addEventListener('click', ()=>{
       this._toggleLike();
@@ -41,8 +40,9 @@ class Card{
   createCardElement(){
     this._element = this._getTemplate();
     this._setEventListeners();
-    this._element.querySelector('.element__image').src = this._link;
-    this._element.querySelector('.element__image').alt = this._name;
+    this._image = this._element.querySelector('.element__image');
+    this._image.src = this._link;
+    this._image.alt = this._name;
     this._element.querySelector('.element__title').textContent = this._name;
     return this._element;
   }  
