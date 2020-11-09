@@ -43,9 +43,9 @@ export class Api {
         }
         return Promise.reject(res.status);
       })
-      .then(res => {
-        return res;
-      })
+      // .then(res => {
+      //   return res;
+      // })
       .catch(error => {
         console.error(`There is some error ${error}`);
       });

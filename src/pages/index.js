@@ -41,6 +41,21 @@ showProfilePopup.setEventListeners();
 
 
 /*==============================addCards============================*/
+
+new Api().getCards()
+.then(array => {
+  console.log(array);
+  const renderCard = new Section({
+    items: array,
+    renderer: (item) => {
+      const card = new Card(item.name,item.link, cardTemplate,  handleCardClick);      
+      renderCard.addItem(card.createCardElement());
+    }
+  }, '.elements');
+  renderCard.renderItems();
+});
+
+
 const imagePopup = new PopupWithImage({
   popupSelector: '.popup_image',
   imageSelector: '.popup__image',
@@ -51,16 +66,16 @@ const handleCardClick = (name, link)=>{
   imagePopup.open(name, link);
 };
 
-const renderCard = new Section({
-  items: initialCards,
-  renderer: (item) => {
-    const card = new Card(item.name,item.link, cardTemplate,  handleCardClick);
+// const renderCard = new Section({
+//   items: initialCards,
+//   renderer: (item) => {
+//     const card = new Card(item.name,item.link, cardTemplate,  handleCardClick);
       
-    renderCard.addItem(card.createCardElement());
-  }
-}, '.elements');
+//     renderCard.addItem(card.createCardElement());
+//   }
+// }, '.elements');
 
-renderCard.renderItems();
+// renderCard.renderItems();
 
 const newPopup = new PopupWithForm({formElement: forms[1],
   popupSelector: '.popup_form_card'}, 
