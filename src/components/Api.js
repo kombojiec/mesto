@@ -11,6 +11,7 @@ export class Api {
     this._url = `https://mesto.nomoreparties.co/v1/${this._cohort}`;
   }
 
+  //Получение данных пользователя
   getUser() {
     return fetch(this._url + '/users/me', {
         headers: {
@@ -31,6 +32,28 @@ export class Api {
       });
   }
 
+  // Установка данных пользователя
+  setUser(data){
+    return fetch(this._url + '/users/me', {
+      method: 'PATCH',
+      headers: {
+        authorization: this._authorization,
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify(data)
+    })
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(res.status);
+    })
+    .catch(error => {
+      console.error(`There is some error ${error}`);
+    });
+  }
+
+  // Получение массива карточек
   getCards() {
     return fetch(this._url + '/cards', {
         headers: {
@@ -43,13 +66,34 @@ export class Api {
         }
         return Promise.reject(res.status);
       })
-      // .then(res => {
-      //   return res;
-      // })
       .catch(error => {
         console.error(`There is some error ${error}`);
       });
   }
 
+  // Добавлнение новой карточки
+  addCard(name, link){
+    return fetch(this._url + '/cards', {
+      method: 'POST',
+      headers: {
+        authorization: this._authorization,
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: name,
+        link: link
+      })
+    })
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(res.status);
+    })
+    .catch(error => {
+      console.error(`There is some error ${error}`);
+    });
+  }
+  
 
 }

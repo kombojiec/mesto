@@ -28,6 +28,8 @@ const showProfilePopup = new PopupWithForm({
   formElement: forms[0],
   popupSelector: '.popup_form_profile',
 },(data) => {
+  // profileInfo.setUserInfo();
+  new Api().setUser(data);
   profileInfo.setUserInfo();
 });
 
@@ -44,7 +46,6 @@ showProfilePopup.setEventListeners();
 
 new Api().getCards()
 .then(array => {
-  console.log(array);
   const renderCard = new Section({
     items: array,
     renderer: (item) => {
@@ -66,22 +67,25 @@ const handleCardClick = (name, link)=>{
   imagePopup.open(name, link);
 };
 
-// const renderCard = new Section({
-//   items: initialCards,
-//   renderer: (item) => {
-//     const card = new Card(item.name,item.link, cardTemplate,  handleCardClick);
+const renderCard = new Section({
+  items: initialCards,
+  renderer: (item) => {
+    const card = new Card(item.name,item.link, cardTemplate,  handleCardClick);
       
-//     renderCard.addItem(card.createCardElement());
-//   }
-// }, '.elements');
+    renderCard.addItem(card.createCardElement());
+  }
+}, '.elements');
 
 // renderCard.renderItems();
 
 const newPopup = new PopupWithForm({formElement: forms[1],
   popupSelector: '.popup_form_card'}, 
   (inputData)=>{
-    const card = new Card(inputData['card-name'], inputData['card-sourse'], cardTemplate, handleCardClick);  
-    renderCard.addItem(card.createCardElement(), true); 
+    new Api().addCard(inputData['card-name'], inputData['card-sourse'])
+    .then(response => {
+      const card = new Card(response.name, response.link, cardTemplate, handleCardClick);  
+      renderCard.addItem(card.createCardElement(), true); 
+    });
 });
 
 newPopup.setEventListeners();
@@ -104,3 +108,6 @@ cardButton.addEventListener('click', ()=>{
 // getCard.getCards();
 
 // const getUser = new Api(serverData).getUser()
+
+// new Api().setUser({name: 'Vasya', about: 'drugdiller'});
+// new Api().addCard('name', 'https://images.unsplash.com/photo-1600246755117-a4024da99089?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60').then(item => console.log(item))
