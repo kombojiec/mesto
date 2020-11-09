@@ -12,19 +12,23 @@ import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
+import {Api, serverData} from '../components/Api.js';
 
 
 /*==============================editProfile============================*/
 const profileInfo = new UserInfo({
   name: '.profile__name',
   business: '.profile__business',
+  avatar: '.profile__avatar',
 });
+
+profileInfo.setUserInfo();
 
 const showProfilePopup = new PopupWithForm({
   formElement: forms[0],
   popupSelector: '.popup_form_profile',
 },(data) => {
-  profileInfo.setUserInfo(data);
+  profileInfo.setUserInfo();
 });
 
 profileButton.addEventListener('click', ()=>{
@@ -78,3 +82,10 @@ cardButton.addEventListener('click', ()=>{
   formCardValidator.enableValidation();
 
 
+
+
+
+// const getCard = new Api();
+// getCard.getCards();
+
+// const getUser = new Api(serverData).getUser()

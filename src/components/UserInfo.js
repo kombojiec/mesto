@@ -1,7 +1,10 @@
+import {Api} from './Api.js';
+
 export default class UserInfo{
   constructor(data){
     this._name = document.querySelector(data.name);
     this._business = document.querySelector(data.business);
+    this._avatar = document.querySelector(data.avatar);
   }
 
   getUserInfo(){
@@ -11,8 +14,12 @@ export default class UserInfo{
     return this._infoValues;
   }
   
-  setUserInfo(data){
-    this._name.textContent = data['edit-name'];
-    this._business.textContent = data['edit-business'];
+  setUserInfo(){
+    this._infoData = new Api().getUser();
+    this._infoData.then(data => {
+      this._name.textContent = data.name;
+      this._business.textContent = data.about;
+      this._avatar.src = data.avatar;
+    });
   }
 }
