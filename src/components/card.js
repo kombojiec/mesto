@@ -1,7 +1,8 @@
 class Card{
-  constructor(name, link, template, handleCardClick){
+  constructor(name, link, like, template, handleCardClick){
     this._name = name;
     this._link = link;
+    like? this._like = like: this._like ="";
     this._template = template;  
     this._popup = document.querySelector('.popup_image');
     this._popupFigureImage = document.querySelector('.popup__image');
@@ -44,6 +45,7 @@ class Card{
     this._image.src = this._link;
     this._image.alt = this._name;
     this._element.querySelector('.element__title').textContent = this._name;
+    this._element.querySelector('.element__like-counter').textContent = this._like;
     return this._element;
   }  
 }

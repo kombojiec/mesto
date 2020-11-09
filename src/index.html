@@ -39,7 +39,10 @@
             <img src="#" alt="" class="element__image">
             <div class="element__description">
               <h2 class="element__title"></h2>
-              <button class="element__like" type="button"></button>
+              <div class="element__like-group">
+                <button class="element__like" type="button"></button>
+                <p class="element__like-counter"></p>
+              </div>
               <button class="element__basket" type="button"></button>
             </div>
           </article>
@@ -78,6 +81,14 @@
           <button class="popup__close popup__close_place_image" type="button"></button>
           <figcaption class="popup__figcaption"></figcaption>
         </figure>
+      </section>
+
+      <section class="popup popup_remove">
+        <div class="popup__window">
+          <h2 class="popup__title popup__title_type_dark">Вы уверены?</h2>
+          <button class="popup__button" type="submit">Да</button>
+          <button class="popup__close popup__close_place_remove" type="button"></button>
+        </div>
       </section>
     </main>
     

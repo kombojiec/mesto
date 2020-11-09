@@ -49,7 +49,7 @@ new Api().getCards()
   const renderCard = new Section({
     items: array,
     renderer: (item) => {
-      const card = new Card(item.name,item.link, cardTemplate,  handleCardClick);      
+      const card = new Card(item.name,item.link, item.likes.length, cardTemplate,  handleCardClick);      
       renderCard.addItem(card.createCardElement());
     }
   }, '.elements');
@@ -70,9 +70,9 @@ const handleCardClick = (name, link)=>{
 const renderCard = new Section({
   items: initialCards,
   renderer: (item) => {
-    const card = new Card(item.name,item.link, cardTemplate,  handleCardClick);
+    const card = new Card(item.name,item.link, item.likes.length, cardTemplate,  handleCardClick);
       
-    renderCard.addItem(card.createCardElement());
+    renderCard.addItem(card.createCardElement(), true);
   }
 }, '.elements');
 
@@ -83,7 +83,7 @@ const newPopup = new PopupWithForm({formElement: forms[1],
   (inputData)=>{
     new Api().addCard(inputData['card-name'], inputData['card-sourse'])
     .then(response => {
-      const card = new Card(response.name, response.link, cardTemplate, handleCardClick);  
+      const card = new Card(response.name, response.link, response.likes.length, cardTemplate, handleCardClick);  
       renderCard.addItem(card.createCardElement(), true); 
     });
 });
@@ -110,4 +110,3 @@ cardButton.addEventListener('click', ()=>{
 // const getUser = new Api(serverData).getUser()
 
 // new Api().setUser({name: 'Vasya', about: 'drugdiller'});
-// new Api().addCard('name', 'https://images.unsplash.com/photo-1600246755117-a4024da99089?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60').then(item => console.log(item))
