@@ -31,7 +31,6 @@ const showProfilePopup = new PopupWithForm({
   formElement: forms[0],
   popupSelector: '.popup_form_profile',
 },(data) => {
-  // profileInfo.setUserInfo();
   new Api().setUser(data);
   profileInfo.setUserInfo();
 });
@@ -46,6 +45,22 @@ showProfilePopup.setEventListeners();
 
 
 /*==============================addCards============================*/
+const renderCard = new Section({
+  items: [],
+  renderer: (item) => {
+    const card = new Card(
+      item.name,
+      item.link, 
+      item.likes,
+      item.owner._id, 
+      item._id,
+      cardTemplate,  
+      handleCardClick,
+      confirmRemoveCard);      
+    renderCard.addItem(card.createCardElement());
+  }
+}, '.elements');
+
 
 new Api().getCards()
 .then(array => {
@@ -53,7 +68,7 @@ new Api().getCards()
     const card = new Card(
       item.name,
       item.link, 
-      item.likes.length, 
+      item.likes, 
       item.owner._id,
       item._id,
       cardTemplate,  
@@ -62,7 +77,24 @@ new Api().getCards()
     renderCard.addItem(card.createCardElement());
     
   });
-  // renderCard.renderItems();
+});
+
+const newPopup = new PopupWithForm({formElement: forms[1],
+  popupSelector: '.popup_form_card'}, 
+  (inputData)=>{
+    new Api().addCard(inputData['card-name'], inputData['card-sourse'])
+    .then(response => {
+      const card = new Card(
+        response.name, 
+        response.link, 
+        response.likes,
+        response.owner._id,
+        response._id,
+        cardTemplate,
+        handleCardClick,
+        confirmRemoveCard); 
+      renderCard.addItem(card.createCardElement(), true); 
+    });
 });
 
 
@@ -90,42 +122,6 @@ const confirmRemoveCard = (id,element) => {
   });
 };
 
-
-const renderCard = new Section({
-  items: [],
-  renderer: (item) => {
-    const card = new Card(
-      item.name,
-      item.link, 
-      item.likes.length,
-      item.owner._id, 
-      item._id,
-      cardTemplate,  
-      handleCardClick,
-      confirmRemoveCard);      
-    renderCard.addItem(card.createCardElement());
-  }
-}, '.elements');
-
-
-const newPopup = new PopupWithForm({formElement: forms[1],
-  popupSelector: '.popup_form_card'}, 
-  (inputData)=>{
-    new Api().addCard(inputData['card-name'], inputData['card-sourse'])
-    .then(response => {
-      const card = new Card(
-        response.name, 
-        response.link, 
-        response.likes.length,
-        response.owner._id,
-        response._id,
-        cardTemplate,
-        handleCardClick,
-        confirmRemoveCard); 
-      renderCard.addItem(card.createCardElement(), true); 
-    });
-});
-
 newPopup.setEventListeners();
 cardButton.addEventListener('click', ()=>{
   newPopup.open();
@@ -147,4 +143,3 @@ removePopup.setEventListeners();
 
 /*==============================modules-export============================*/
 export {removePopup};
-

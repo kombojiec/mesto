@@ -6,7 +6,7 @@ class Card{
   constructor(name, link, like, id, cardId, template, handleCardClick, confirmRemoveCard){
     this._name = name;
     this._link = link;
-    like? this._like = like: this._like ="";
+    this._like = like; //массив 
     id === "4ca33b1025ae9067ff8a99f8"?
     this._id = true: this._id = false;
     this._cardId = cardId;
@@ -47,18 +47,49 @@ class Card{
     this._element = null;
   }
 
-  _toggleLike(){
-    this._element.querySelector('.element__like').classList.toggle('element__like_active');
+  // Проверка на наличие личного лайка
+  _checkOwnLike(){
+    this._like.forEach(like => {
+      if(like._id === "4ca33b1025ae9067ff8a99f8"){
+        this._likeElement.classList.add('element__like_active');
+      }
+    });
+  }
+
+  _toggleLike(){    
+    // Переменные
+    this._likeValue = this._element.querySelector('.element__like-counter');
+
+    // Добавление/удаление лайка
+    if(this._likeElement.classList.contains('element__like_active')){
+      new Api().removeLike(this._cardId)
+      .then(response => {
+        this._likeElement.classList.remove('element__like_active');
+        console.log(response.likes.length);
+        this._likeValue.textContent = response.likes.length;
+        console.log(this._like + '--новое значение');
+      });
+    }else{
+      new Api().addLike(this._cardId)
+      .then(response => {
+        this._likeElement.classList.add('element__like_active');
+        console.log(this._like + 'старое значение');
+        this._likeValue.textContent = response.likes.length;
+        console.log(response.likes.length + '++новое значение');
+      });
+    }
   }
 
   createCardElement(){
     this._element = this._getTemplate();
-    this._setEventListeners();
     this._image = this._element.querySelector('.element__image');
+    this._likeElement = this._element.querySelector('.element__like');  
+    this._checkOwnLike();
+    this._setEventListeners();
     this._image.src = this._link;
     this._image.alt = this._name;
     this._element.querySelector('.element__title').textContent = this._name;
-    this._element.querySelector('.element__like-counter').textContent = this._like;
+    this._element.querySelector('.element__like-counter').textContent = this._like.length;
     return this._element;
   }  
 }

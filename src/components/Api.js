@@ -115,6 +115,44 @@ export default class Api {
       console.error(`There is some error ${error}`);
     });
   }
+
+  addLike(id){
+    return fetch(this._url + '/cards/likes/' + id, {
+      method: 'PUT',
+      headers: {
+        authorization: this._authorization,
+        'Content-type': 'application/json',
+      },      
+    })
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(res.status);
+    })
+    .catch(error => {
+      console.error(`There is some error ${error}`);
+    });
+  }
+
+  removeLike(id){
+    return fetch(this._url + '/cards/likes/' + id, {
+      method: 'DELETE',
+      headers: {
+        authorization: this._authorization,
+        'Content-type': 'application/json',
+      },      
+    })
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(res.status);
+    })
+    .catch(error => {
+      console.error(`There is some error ${error}`);
+    });
+  }
   
 
 }
