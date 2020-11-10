@@ -1,8 +1,8 @@
 'use strict';
 
-/*==============================modules============================*/
+/*==============================modules-import============================*/
 import './index.css';
-import {initialCards, formObject, profileButton, 
+import { formObject, profileButton, 
         authorInput, businessInput, 
         cardButton, cardTemplate, cardSection,
         forms} from '../utiles/constants.js';
@@ -12,7 +12,10 @@ import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
-import {Api, serverData} from '../components/Api.js';
+import Api from '../components/Api.js';
+import Popup from '../components/Popup.js';
+
+
 
 
 /*==============================editProfile============================*/
@@ -46,14 +49,20 @@ showProfilePopup.setEventListeners();
 
 new Api().getCards()
 .then(array => {
-  const renderCard = new Section({
-    items: array,
-    renderer: (item) => {
-      const card = new Card(item.name,item.link, item.likes.length, cardTemplate,  handleCardClick);      
-      renderCard.addItem(card.createCardElement());
-    }
-  }, '.elements');
-  renderCard.renderItems();
+  array.forEach(item =>{    
+    const card = new Card(
+      item.name,
+      item.link, 
+      item.likes.length, 
+      item.owner._id,
+      item._id,
+      cardTemplate,  
+      handleCardClick,
+      confirmRemoveCard);      
+    renderCard.addItem(card.createCardElement());
+    
+  });
+  // renderCard.renderItems();
 });
 
 
@@ -63,27 +72,56 @@ const imagePopup = new PopupWithImage({
   imageFigcaption: '.popup__figcaption'
 });
 imagePopup.setEventListeners();
+
 const handleCardClick = (name, link)=>{
   imagePopup.open(name, link);
 };
 
+const confirmRemoveCard = (id,element) => {
+  removePopup.open();
+  document.querySelector('.popup__button_remove').addEventListener('click', (event)=>{
+    event.preventDefault();
+    new Api().removeCard(id)
+    .then(card => {
+      console.log(card);
+      element.remove();
+      removePopup.close();
+    });
+  });
+};
+
+
 const renderCard = new Section({
-  items: initialCards,
+  items: [],
   renderer: (item) => {
-    const card = new Card(item.name,item.link, item.likes.length, cardTemplate,  handleCardClick);
-      
-    renderCard.addItem(card.createCardElement(), true);
+    const card = new Card(
+      item.name,
+      item.link, 
+      item.likes.length,
+      item.owner._id, 
+      item._id,
+      cardTemplate,  
+      handleCardClick,
+      confirmRemoveCard);      
+    renderCard.addItem(card.createCardElement());
   }
 }, '.elements');
 
-// renderCard.renderItems();
 
 const newPopup = new PopupWithForm({formElement: forms[1],
   popupSelector: '.popup_form_card'}, 
   (inputData)=>{
     new Api().addCard(inputData['card-name'], inputData['card-sourse'])
     .then(response => {
-      const card = new Card(response.name, response.link, response.likes.length, cardTemplate, handleCardClick);  
+      const card = new Card(
+        response.name, 
+        response.link, 
+        response.likes.length,
+        response.owner._id,
+        response._id,
+        cardTemplate,
+        handleCardClick,
+        confirmRemoveCard); 
       renderCard.addItem(card.createCardElement(), true); 
     });
 });
@@ -94,6 +132,12 @@ cardButton.addEventListener('click', ()=>{
   formCardValidator.disableButton(forms[1].querySelector('.popup__button'));
 });
 
+
+/*==============================removePopup============================*/
+const removePopup = new Popup('.popup_remove');
+removePopup.setEventListeners();
+
+
 /*==============================validationForms============================*/
   const formProfileValidator = new FormValidator(formObject, forms[0]);
   formProfileValidator.enableValidation();
@@ -101,12 +145,6 @@ cardButton.addEventListener('click', ()=>{
   formCardValidator.enableValidation();
 
 
+/*==============================modules-export============================*/
+export {removePopup};
 
-
-
-// const getCard = new Api();
-// getCard.getCards();
-
-// const getUser = new Api(serverData).getUser()
-
-// new Api().setUser({name: 'Vasya', about: 'drugdiller'});

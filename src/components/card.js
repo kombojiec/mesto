@@ -1,12 +1,20 @@
+import {removePopup} from '../pages/index.js';
+import Api from './Api.js';
+
+
 class Card{
-  constructor(name, link, like, template, handleCardClick){
+  constructor(name, link, like, id, cardId, template, handleCardClick, confirmRemoveCard){
     this._name = name;
     this._link = link;
     like? this._like = like: this._like ="";
+    id === "4ca33b1025ae9067ff8a99f8"?
+    this._id = true: this._id = false;
+    this._cardId = cardId;
     this._template = template;  
     this._popup = document.querySelector('.popup_image');
     this._popupFigureImage = document.querySelector('.popup__image');
     this._handleCardClick = handleCardClick;
+    this._confirmRemoveCard = confirmRemoveCard.bind(this);
   }
 
   _getTemplate(){
@@ -18,9 +26,14 @@ class Card{
   }
 
   _setEventListeners(){
-    this._element.querySelector('.element__basket').addEventListener('click', () =>{
-      this._removeCard();
-    });
+    this._basket = this._element.querySelector('.element__basket');
+    if(this._id){
+      this._basket.addEventListener('click', () =>{
+        this._confirmRemoveCard(this._cardId, this._element);
+      });
+    }else{
+      this._basket.style.display="none";
+    }    
     this._element.querySelector('.element__like').addEventListener('click', ()=>{
       this._toggleLike();
     });

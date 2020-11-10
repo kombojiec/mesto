@@ -1,10 +1,10 @@
-export const serverData = {
-  cohort: 'cohort-17',
-  authorization: '41783898-48ae-4927-9db7-0ae982096860',
-  // url : `https://mesto.nomoreparties.co/v1/${this.cohort}/cards`,  
-};
+// export const serverData = {
+//   cohort: 'cohort-17',
+//   authorization: '41783898-48ae-4927-9db7-0ae982096860',
+//   // url : `https://mesto.nomoreparties.co/v1/${this.cohort}/cards`,  
+// };
 
-export class Api {
+export default class Api {
   constructor() {
     this._cohort = 'cohort-17';
     this._authorization = '41783898-48ae-4927-9db7-0ae982096860';
@@ -83,6 +83,27 @@ export class Api {
         name: name,
         link: link
       })
+    })
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(res.status);
+    })
+    .catch(error => {
+      console.error(`There is some error ${error}`);
+    });
+  }
+
+
+  // ДУдаление карточки
+  removeCard(id){
+    return fetch(this._url + '/cards/' + id, {
+      method: 'DELETE',
+      headers: {
+        authorization: this._authorization,
+        'Content-type': 'application/json',
+      },      
     })
     .then(res => {
       if (res.ok) {

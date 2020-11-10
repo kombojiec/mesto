@@ -58,7 +58,6 @@
 @import url(../blocks/popup/__figure/popup__figure.css);
 @import url(../blocks/popup/__image/popup__image.css);
 @import url(../blocks/popup/figcaption/popup__figcaption.css);
-@import url(../blocks/popup/__window/popup__window.css);
 
 /* ====================footer========================== */
 @import url(../blocks/footer/footer.css);
