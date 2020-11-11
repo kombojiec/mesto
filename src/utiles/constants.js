@@ -41,10 +41,13 @@ const businessInput = popupProfile.querySelector('.popup__input_place_business')
 const cardButton = document.querySelector('.profile__add-button');
 const cardTemplate = document.querySelector('.elements__template');
 const cardSection = document.querySelector('.elements');
+const avatarContent = document.querySelector('.profile__avatar');
+const avatarItem = document.querySelector('.profile__avatar-wrap');
+
 const forms = document.querySelectorAll(formObject.formSelector);
 
 
 export {initialCards, formObject, profileButton, 
   authorInput, businessInput, 
   cardButton, cardTemplate, cardSection,
-  forms};
+  forms, avatarContent, avatarItem};

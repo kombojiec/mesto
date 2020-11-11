@@ -5,7 +5,7 @@ import './index.css';
 import { formObject, profileButton, 
         authorInput, businessInput, 
         cardButton, cardTemplate, cardSection,
-        forms} from '../utiles/constants.js';
+        forms, avatarContent, avatarItem} from '../utiles/constants.js';
 import Card from '../components/card.js';
 import FormValidator from '../components/validation.js';
 import Section from '../components/Section.js';
@@ -119,12 +119,37 @@ const removePopup = new PopupConfirmation('.popup_remove');
 removePopup.setEventListeners();
 
 
+/*==============================avatarPopup============================*/
+const avatarPopup = new PopupWithForm({
+  formElement: forms[3],
+  popupSelector: '.popup_avatar',
+}, (inputData) =>{
+  new Api().changeAvatar(inputData['avatar-sourse'])
+  .then(response =>{
+    avatarContent.src =  response.avatar;
+  });
+});
+avatarPopup.setEventListeners();
+
+avatarItem.addEventListener('click',()=>{
+  avatarPopup.open();
+});
+
+// console.log(avatar);
+
 /*==============================validationForms============================*/
   const formProfileValidator = new FormValidator(formObject, forms[0]);
   formProfileValidator.enableValidation();
+
   const formCardValidator = new FormValidator(formObject, forms[1]);
   formCardValidator.enableValidation();
+
+  const formAvatarValidator = new FormValidator(formObject, forms[3]);
+  formAvatarValidator.enableValidation();
 
 
 /*==============================modules-export============================*/
 export {removePopup};
+
+// new Api().changeAvatar('https://i.ytimg.com/vi/91wyQQjl8IQ/maxresdefault.jpg')
+// .then(response => console.log(response));

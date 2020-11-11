@@ -1,9 +1,3 @@
-// export const serverData = {
-//   cohort: 'cohort-17',
-//   authorization: '41783898-48ae-4927-9db7-0ae982096860',
-//   // url : `https://mesto.nomoreparties.co/v1/${this.cohort}/cards`,  
-// };
-
 export default class Api {
   constructor() {
     this._cohort = 'cohort-17';
@@ -96,7 +90,7 @@ export default class Api {
   }
 
 
-  // ДУдаление карточки
+  // Удаление карточки
   removeCard(id){
     return fetch(this._url + '/cards/' + id, {
       method: 'DELETE',
@@ -116,6 +110,7 @@ export default class Api {
     });
   }
 
+  // Добавление лайка
   addLike(id){
     return fetch(this._url + '/cards/likes/' + id, {
       method: 'PUT',
@@ -135,6 +130,7 @@ export default class Api {
     });
   }
 
+  // Удаление лайка
   removeLike(id){
     return fetch(this._url + '/cards/likes/' + id, {
       method: 'DELETE',
@@ -142,6 +138,29 @@ export default class Api {
         authorization: this._authorization,
         'Content-type': 'application/json',
       },      
+    })
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(res.status);
+    })
+    .catch(error => {
+      console.error(`There is some error ${error}`);
+    });
+  }
+
+  // Смена аватара
+  changeAvatar(url){
+    return fetch(this._url + '/users/me/avatar' , {
+      method: 'PATCH',
+      headers: {
+        authorization: this._authorization,
+        'Content-type': 'application/json',
+      },      
+      body: JSON.stringify({
+        avatar: url,
+      })
     })
     .then(res => {
       if (res.ok) {
