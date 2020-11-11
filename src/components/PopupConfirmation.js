@@ -1,5 +1,7 @@
 import Popup from './Popup.js';
 import Api from './Api.js';
+import {errorPopup} from '../pages/index.js';
+
 export default class PopupConfirmation extends Popup{
   constructor(popupSelector){
     super(popupSelector);
@@ -16,7 +18,8 @@ export default class PopupConfirmation extends Popup{
       console.log(card);
       element.remove();
       this.close();
-    });
+    })
+    .catch(()=> errorPopup.open());
     }
     
     setEventListeners(){

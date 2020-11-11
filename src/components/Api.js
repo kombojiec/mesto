@@ -1,3 +1,5 @@
+import {errorPopup} from '../pages/index.js';
+
 export default class Api {
   constructor() {
     this._cohort = 'cohort-17';
@@ -85,7 +87,6 @@ export default class Api {
       return Promise.reject(res.status);
     })
     .catch(error => {
-      console.error(`There is some error ${error}`);
     });
   }
 
