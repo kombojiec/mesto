@@ -13,7 +13,7 @@ import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
 import Api from '../components/Api.js';
-import Popup from '../components/Popup.js';
+import PopupConfirmation from '../components/PopupConfirmation.js';
 
 
 
@@ -55,8 +55,7 @@ const renderCard = new Section({
       item.owner._id, 
       item._id,
       cardTemplate,  
-      handleCardClick,
-      confirmRemoveCard);      
+      handleCardClick);
     renderCard.addItem(card.createCardElement());
   }
 }, '.elements');
@@ -72,8 +71,7 @@ new Api().getCards()
       item.owner._id,
       item._id,
       cardTemplate,  
-      handleCardClick,
-      confirmRemoveCard);      
+      handleCardClick);
     renderCard.addItem(card.createCardElement());
     
   });
@@ -91,8 +89,7 @@ const newPopup = new PopupWithForm({formElement: forms[1],
         response.owner._id,
         response._id,
         cardTemplate,
-        handleCardClick,
-        confirmRemoveCard); 
+        handleCardClick);
       renderCard.addItem(card.createCardElement(), true); 
     });
 });
@@ -109,18 +106,6 @@ const handleCardClick = (name, link)=>{
   imagePopup.open(name, link);
 };
 
-const confirmRemoveCard = (id,element) => {
-  removePopup.open();
-  document.querySelector('.popup__button_remove').addEventListener('click', (event)=>{
-    event.preventDefault();
-    new Api().removeCard(id)
-    .then(card => {
-      console.log(card);
-      element.remove();
-      removePopup.close();
-    });
-  });
-};
 
 newPopup.setEventListeners();
 cardButton.addEventListener('click', ()=>{
@@ -130,7 +115,7 @@ cardButton.addEventListener('click', ()=>{
 
 
 /*==============================removePopup============================*/
-const removePopup = new Popup('.popup_remove');
+const removePopup = new PopupConfirmation('.popup_remove');
 removePopup.setEventListeners();
 
 

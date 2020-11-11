@@ -3,18 +3,18 @@ import Api from './Api.js';
 
 
 class Card{
-  constructor(name, link, like, id, cardId, template, handleCardClick, confirmRemoveCard){
+  constructor(name, link, like, id, cardId, template, handleCardClick,){
     this._name = name;
     this._link = link;
     this._like = like; //массив 
     id === "4ca33b1025ae9067ff8a99f8"?
     this._id = true: this._id = false;
     this._cardId = cardId;
+
     this._template = template;  
     this._popup = document.querySelector('.popup_image');
     this._popupFigureImage = document.querySelector('.popup__image');
     this._handleCardClick = handleCardClick;
-    this._confirmRemoveCard = confirmRemoveCard.bind(this);
   }
 
   _getTemplate(){
@@ -29,7 +29,7 @@ class Card{
     this._basket = this._element.querySelector('.element__basket');
     if(this._id){
       this._basket.addEventListener('click', () =>{
-        this._confirmRemoveCard(this._cardId, this._element);
+        removePopup.open(this._cardId, this._element);
       });
     }else{
       this._basket.style.display="none";
@@ -65,17 +65,13 @@ class Card{
       new Api().removeLike(this._cardId)
       .then(response => {
         this._likeElement.classList.remove('element__like_active');
-        console.log(response.likes.length);
         this._likeValue.textContent = response.likes.length;
-        console.log(this._like + '--новое значение');
       });
     }else{
       new Api().addLike(this._cardId)
       .then(response => {
         this._likeElement.classList.add('element__like_active');
-        console.log(this._like + 'старое значение');
         this._likeValue.textContent = response.likes.length;
-        console.log(response.likes.length + '++новое значение');
       });
     }
   }
