@@ -31,8 +31,12 @@ const showProfilePopup = new PopupWithForm({
   formElement: forms[0],
   popupSelector: '.popup_form_profile',
 },(data) => {
-  new Api().setUser(data);
-  profileInfo.setUserInfo();
+  new Api().setUser(data)
+    .then(res =>{
+      profileInfo.setUserInfo();
+      changeButtonValue(forms[0], 'Сохранить');
+    })
+    .finally(()=> showProfilePopup.close());
 });
 
 profileButton.addEventListener('click', ()=>{
@@ -91,7 +95,9 @@ const newPopup = new PopupWithForm({formElement: forms[1],
         cardTemplate,
         handleCardClick);
       renderCard.addItem(card.createCardElement(), true); 
-    });
+    })
+    .then(res => changeButtonValue(forms[1], 'Создать'))
+    .finally(()=> newPopup.close());
 });
 
 
@@ -127,7 +133,9 @@ const avatarPopup = new PopupWithForm({
   new Api().changeAvatar(inputData['avatar-sourse'])
   .then(response =>{
     avatarContent.src =  response.avatar;
-  });
+  })
+  .then(res => changeButtonValue(forms[3], 'Сохранить'))
+  .finally(()=> avatarPopup.close());
 });
 avatarPopup.setEventListeners();
 
@@ -135,7 +143,6 @@ avatarItem.addEventListener('click',()=>{
   avatarPopup.open();
 });
 
-// console.log(avatar);
 
 /*==============================validationForms============================*/
   const formProfileValidator = new FormValidator(formObject, forms[0]);
@@ -149,7 +156,14 @@ avatarItem.addEventListener('click',()=>{
 
 
 /*==============================modules-export============================*/
-export {removePopup};
+export {removePopup, changeButtonValue};
 
 // new Api().changeAvatar('https://i.ytimg.com/vi/91wyQQjl8IQ/maxresdefault.jpg')
 // .then(response => console.log(response));
+
+
+
+
+function changeButtonValue(form,text){
+  form.querySelector('.popup__button').innerText = text;
+}

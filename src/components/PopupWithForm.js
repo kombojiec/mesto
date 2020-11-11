@@ -1,33 +1,54 @@
 import Popup from './Popup.js';
+import {
+  changeButtonValue
+} from '../pages/index.js';
 
-export default class PopupWithForm extends Popup{
-  constructor({formElement, popupSelector}, handleFormSubmit){
+export default class PopupWithForm extends Popup {
+  constructor({
+    formElement,
+    popupSelector
+  }, handleFormSubmit) {
     super(popupSelector);
     this._form = formElement;
     this._handleFormSubmit = handleFormSubmit;
   }
-  
 
-  _getInputValues(){
-    this._inputList = this._form.querySelectorAll('.popup__input');    
+
+  _getInputValues() {
+    this._inputList = this._form.querySelectorAll('.popup__input');
     this._inputValues = {};
     this._inputList.forEach(input => {
       this._inputValues[input.name] = input.value;
-      });    
+    });
     return this._inputValues;
   }
 
-  close(){
+  close() {
     super.close();
     this._form.reset();
   }
 
-  setEventListeners(){
+  setEventListeners() {
     super.setEventListeners();
-    this._form.addEventListener('submit', (event)=>{
+    this._form.addEventListener('submit', (event) => {
       event.preventDefault();
-      this._handleFormSubmit(this._getInputValues());  
-      this.close();   
+      changeButtonValue(this._form, 'Сохранение');
+      this._handleFormSubmit(this._getInputValues());
     });
-  }  
+  }
+
+
+
+
+
+
+  // setEventListeners(){
+  //   super.setEventListeners();
+  //   this._form.addEventListener('submit', (event)=>{
+  //     event.preventDefault();
+  //     this._handleFormSubmit(this._getInputValues());  
+  //     changeButtonValue(this._form, 'Загрузка');
+  //     this.close();   
+  //   });
+  // }  
 }
