@@ -2,18 +2,18 @@
 
 /*==============================modules-import============================*/
 import './index.css';
-import { formObject, profileButton, 
+import {api, formObject, profileButton, 
         authorInput, businessInput, 
         cardButton, cardTemplate, /*cardSection,*/
         forms, avatarContent, avatarItem, 
-        createCard, changeButtonValue} from '../utiles/constants.js';
+        createCard, changeButtonValue, 
+        consoleError, setSumbitCallback} from '../utiles/constants.js';
 import FormValidator from '../components/validation.js';
 import Section from '../components/Section.js';
 import Popup from '../components/Popup.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
-import Api from '../components/Api.js';
 import PopupConfirmation from '../components/PopupConfirmation.js';
 
 
@@ -26,19 +26,25 @@ const profileInfo = new UserInfo({
   avatar: '.profile__avatar',
 });
 
-profileInfo.setUserInfo();
+const userInfo = api.getUser();
+
+userInfo.then(data => profileInfo.setUserInfo(data));
 
 const showProfilePopup = new PopupWithForm({
   formElement: forms[0],
   popupSelector: '.popup_form_profile',},
   (data) => {
-  new Api().setUser(data)
+  api.setUser(data)
     .then(res =>{
-      profileInfo.setUserInfo();
-      changeButtonValue(forms[0], 'Сохранить');
+      profileInfo.setUserInfo(res);
+      showProfilePopup.close();      
     })
-    .catch(()=> errorPopup.open())
-    .finally(()=> showProfilePopup.close());
+    .catch((error)=> {
+      errorPopup.open();
+      consoleError(error);
+    })
+    .finally(()=> {
+      changeButtonValue(forms[0], 'Сохранить');});
 });
 
 profileButton.addEventListener('click', ()=>{
@@ -59,7 +65,7 @@ const renderCard = new Section({
   }
 }, '.elements');
 
-new Api().getCards()
+api.getCards()
 .then(array => {
   array.forEach(item =>{    
     const card = createCard(item);
@@ -70,14 +76,17 @@ new Api().getCards()
 const newPopup = new PopupWithForm({formElement: forms[1],
   popupSelector: '.popup_form_card'}, 
   (inputData)=>{
-    new Api().addCard(inputData['card-name'], inputData['card-sourse'])
+    api.addCard(inputData['card-name'], inputData['card-sourse'])
     .then(item => {
       const card = createCard(item);
       renderCard.addItem(card.createCardElement(), true); 
     })
-    .then(() => changeButtonValue(forms[1], 'Создать'))
-    .catch(()=> errorPopup.open())
-    .finally(()=> newPopup.close());
+    .then(() => newPopup.close())
+    .catch((error)=> {
+      errorPopup.open();
+      consoleError(error);
+    })
+    .finally(()=> changeButtonValue(forms[1], 'Создать'));
 });
 
 
@@ -95,7 +104,7 @@ cardButton.addEventListener('click', ()=>{
 });
 
 /*==============================removePopup============================*/
-const removePopup = new PopupConfirmation('.popup_remove');
+const removePopup = new PopupConfirmation('.popup_remove', setSumbitCallback);
 removePopup.setEventListeners();
 
 
@@ -104,13 +113,16 @@ const avatarPopup = new PopupWithForm({
   formElement: forms[3],
   popupSelector: '.popup_avatar',}, 
   (inputData) =>{
-  new Api().changeAvatar(inputData['avatar-sourse'])
-  .then(response =>{
-    avatarContent.src =  response.avatar;
+  api.changeAvatar(inputData['avatar-sourse'])
+  .then((data) =>{
+    profileInfo.setUserInfo(data);
+    avatarPopup.close();
   })
-  .then(res => changeButtonValue(forms[3], 'Сохранить'))
-  .catch(()=> errorPopup.open())
-  .finally(()=> avatarPopup.close());
+  .catch((error)=> {
+    errorPopup.open();
+    consoleError(error);
+  })
+  .finally(()=>  changeButtonValue(forms[3], 'Сохранить'));
 });
 avatarPopup.setEventListeners();
 
@@ -137,3 +149,4 @@ errorPopup.setEventListeners();
 
 /*==============================modules-export============================*/
 export {removePopup, changeButtonValue, imagePopup, errorPopup};
+

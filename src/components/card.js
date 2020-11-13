@@ -1,20 +1,25 @@
 import {removePopup} from '../pages/index.js';
-import Api from './Api.js';
+import {api} from '../utiles/constants.js';
+import {ownerInfo} from '../utiles/constants.js';
 
 
 class Card{
-  constructor(name, link, like, id, cardId, template, handleCardClick,){
+  constructor(name, link, like, id, ownerInfoId, 
+              cardId, template, handleCardClick, 
+              removeLike, addLike){
     this._name = name;
     this._link = link;
     this._like = like; //массив 
-    id === "4ca33b1025ae9067ff8a99f8"?
+    this._userId = ownerInfoId;
+    id === this._userId?
     this._id = true: this._id = false;
     this._cardId = cardId;
-
     this._template = template;  
     this._popup = document.querySelector('.popup_image');
     this._popupFigureImage = document.querySelector('.popup__image');
     this._handleCardClick = handleCardClick;
+    this._removeLike = removeLike;
+    this._addLike = addLike;
   }
 
   _getTemplate(){
@@ -35,7 +40,7 @@ class Card{
       this._basket.style.display="none";
     }    
     this._element.querySelector('.element__like').addEventListener('click', ()=>{
-      this._toggleLike();
+      this._changeLike(this._cardId);
     });
     this._element.querySelector('.element__image').addEventListener('click', ()=>{
       this._handleCardClick(this._name, this._link);
@@ -50,29 +55,23 @@ class Card{
   // Проверка на наличие личного лайка
   _checkOwnLike(){
     this._like.forEach(like => {
-      if(like._id === "4ca33b1025ae9067ff8a99f8"){
+      if(like._id === this._userId){
         this._likeElement.classList.add('element__like_active');
       }
     });
   }
 
-  _toggleLike(){    
-    // Переменные
+  toggleLikeData(value){
     this._likeValue = this._element.querySelector('.element__like-counter');
+    this._likeElement.classList.toggle('element__like_active');
+    this._likeValue.textContent = value; 
+  }
 
-    // Добавление/удаление лайка
-    if(this._likeElement.classList.contains('element__like_active')){
-      new Api().removeLike(this._cardId)
-      .then(response => {
-        this._likeElement.classList.remove('element__like_active');
-        this._likeValue.textContent = response.likes.length;
-      });
-    }else{
-      new Api().addLike(this._cardId)
-      .then(response => {
-        this._likeElement.classList.add('element__like_active');
-        this._likeValue.textContent = response.likes.length;
-      });
+  _changeLike(){
+    if(this._likeElement.classList.contains('element__like_active')){  
+      this._removeLike(this._cardId);      
+    }else{    
+      this._addLike(this._cardId);
     }
   }
 

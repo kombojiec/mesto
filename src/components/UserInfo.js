@@ -1,4 +1,4 @@
-import Api from './Api.js';
+import {api} from '../utiles/constants.js';
 
 export default class UserInfo{
   constructor(data){
@@ -14,12 +14,9 @@ export default class UserInfo{
     return this._infoValues;
   }
   
-  setUserInfo(){
-    this._infoData = new Api().getUser();
-    this._infoData.then(data => {
+  setUserInfo(data){
       this._name.textContent = data.name;
       this._business.textContent = data.about;
       this._avatar.src = data.avatar;
-    });
   }
 }

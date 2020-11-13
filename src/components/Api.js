@@ -1,10 +1,17 @@
-import {errorPopup} from '../pages/index.js';
 
 export default class Api {
-  constructor() {
-    this._cohort = 'cohort-17';
-    this._authorization = '41783898-48ae-4927-9db7-0ae982096860';
-    this._url = `https://mesto.nomoreparties.co/v1/${this._cohort}`;
+  constructor(cohort, authorization, url) {
+    this._cohort = cohort;
+    this._authorization = authorization;
+    this._url = url;
+  }
+
+  //Метод проверки статуса
+  _checkResponse(res){
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(res.status);
   }
 
   //Получение данных пользователя
@@ -14,18 +21,7 @@ export default class Api {
           authorization: this._authorization
         }
       })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(res.status);
-      })
-      .then(res => {
-        return res;
-      })
-      .catch(error => {
-        console.error(`There is some error ${error}`);
-      });
+      .then(res => this._checkResponse(res));
   }
 
   // Установка данных пользователя
@@ -38,15 +34,7 @@ export default class Api {
       },
       body: JSON.stringify(data)
     })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(res.status);
-    })
-    .catch(error => {
-      console.error(`There is some error ${error}`);
-    });
+    .then(res => this._checkResponse(res));
   }
 
   // Получение массива карточек
@@ -56,15 +44,7 @@ export default class Api {
           authorization: this._authorization
         }
       })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(res.status);
-      })
-      .catch(error => {
-        console.error(`There is some error ${error}`);
-      });
+      .then(res => this._checkResponse(res));
   }
 
   // Добавлнение новой карточки
@@ -80,14 +60,7 @@ export default class Api {
         link: link
       })
     })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(res.status);
-    })
-    .catch(error => {
-    });
+    .then(res => this._checkResponse(res));
   }
 
 
@@ -100,15 +73,7 @@ export default class Api {
         'Content-type': 'application/json',
       },      
     })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(res.status);
-    })
-    .catch(error => {
-      console.error(`There is some error ${error}`);
-    });
+    .then(res => this._checkResponse(res));
   }
 
   // Добавление лайка
@@ -120,15 +85,7 @@ export default class Api {
         'Content-type': 'application/json',
       },      
     })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(res.status);
-    })
-    .catch(error => {
-      console.error(`There is some error ${error}`);
-    });
+    .then(res => this._checkResponse(res));
   }
 
   // Удаление лайка
@@ -140,15 +97,7 @@ export default class Api {
         'Content-type': 'application/json',
       },      
     })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(res.status);
-    })
-    .catch(error => {
-      console.error(`There is some error ${error}`);
-    });
+    .then(res => this._checkResponse(res));
   }
 
   // Смена аватара
@@ -163,15 +112,7 @@ export default class Api {
         avatar: url,
       })
     })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(res.status);
-    })
-    .catch(error => {
-      console.error(`There is some error ${error}`);
-    });
+    .then(res => this._checkResponse(res));
   }
   
 
